@@ -6,14 +6,10 @@ import { FastifyInstance } from 'fastify';
 import {
   loginHandler,
   registerHandler,
-  resetPasswordHandler,
-  forgotPasswordHandler,
 } from './handlers';
 import {
   loginSchema,
   registerSchema,
-  forgotPasswordSchema,
-  resetPasswordSchema,
 } from './schema';
 
 /**
@@ -34,16 +30,4 @@ export default async function authRoutes(fastify: FastifyInstance) {
   fastify.post('/login', { schema: loginSchema }, loginHandler);
 
   fastify.post('/register', { schema: registerSchema }, registerHandler);
-
-  fastify.post(
-    '/forgot-password',
-    { schema: forgotPasswordSchema },
-    forgotPasswordHandler,
-  );
-
-  fastify.post(
-    '/reset-password',
-    { schema: resetPasswordSchema },
-    resetPasswordHandler,
-  );
 }

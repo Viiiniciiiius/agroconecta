@@ -15,6 +15,7 @@ import mongoosePlugin from 'plugins/mongoose';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
 import authRoutes from 'routes/auth';
+import solutionRoutes from 'routes/solution';
 /**
  * Creates and configures the main Fastify application instance
  *
@@ -108,5 +109,6 @@ if (process.env.NODE_ENV === 'development') {
  */
 
 await app.register(authRoutes, { prefix: '/auth' });
+await app.register(solutionRoutes, { prefix: '/solutions' });
 
 export default app;
