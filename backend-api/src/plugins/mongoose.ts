@@ -26,9 +26,7 @@ async function mongoosePlugin(fastify: FastifyInstance) {
     );
     await mongoose.connect(process.env.MONGO_HOST!, {
       dbName: process.env.MONGO_DBNAME,
-      user: process.env.MONGO_USER,
-      pass: process.env.MONGO_PWD,
-    });
+    });    
     fastify.decorate('mongoose', mongoose);
     console.log('MongoDB connected successfully');
   } catch (error) {
