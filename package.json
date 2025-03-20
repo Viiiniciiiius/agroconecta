@@ -2,7 +2,7 @@
   "name": "agroconecta",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently --names \"FRONTEND-WEB,BACKEND-API,DATABASE\" -c \"bgGreen.bold,bgBlue.bold,bgMagenta.bold,bgCyan.bold\" \"cd frontend-web && npm run dev\" \"cd backend-api && npm run dev\" \"cd backend-api && docker-compose up\"",
+    "start": "concurrently --names \"FRONTEND-WEB,BACKEND-API,DATABASE\" -c \"bgGreen.bold,bgBlue.bold,bgMagenta.bold,bgCyan.bold\" \"cd frontend-web && npm run dev\" \"cd backend-api && npm run dev\"",
     "reset-db": "cd backend-api && docker container rm --volumes -f tg-mongodb && docker volume rm tg_mongodb_data_container",
     "reset-and-start": "npm run reset-db && npm run start"
   },
