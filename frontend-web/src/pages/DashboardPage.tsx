@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from '/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import '../App.css'
 
 const DashboardPage: React.FC = () => {
   const [count, setCount] = useState(0)
