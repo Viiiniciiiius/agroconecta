@@ -6,7 +6,7 @@
 
 - **Frontend:** React (with Context API and Hooks)
 - **Backend:** Fastify (Node.js)
-- **Database:** MongoDB
+- **Database:** Mongo Atlas
 - **Styling:** Tailwind CSS
 - **State Management:** Context API / Redux (optional)
 - **Authentication:** JSON Web Token (JWT)
@@ -15,7 +15,7 @@
 ## 🎯 Features
 
 ✅ Registration and search for agricultural solutions 🔍  
-✅ Integration with MongoDB for efficient storage 💾  
+✅ Integration with Mongo Atlas for efficient storage 💾  
 ✅ User-friendly and responsive interface 🌍  
 ✅ Advanced filters for easy searching 🎯  
 ✅ Optimized API with Fastify for high performance ⚡  
@@ -26,7 +26,7 @@
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/agroconecta.git
+git clone https://github.com/viiiniciiiius/agroconecta.git
 cd agroconecta
 ```
 
@@ -57,8 +57,6 @@ JWT_SECRET=your_secret_key
 |--------|------------------|-----------------------------|
 | POST   | /api/solutions   | Adds a new solution        |
 | GET    | /api/solutions   | Lists all solutions        |
-| GET    | /api/solutions/:id | Retrieves solution details |
-| PUT    | /api/solutions/:id | Updates a solution         |
 | DELETE | /api/solutions/:id | Removes a solution         |
 
 ## 📌 Contribution

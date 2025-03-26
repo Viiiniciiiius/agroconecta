@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from '/react.svg'
-import viteLogo from '/vite.svg'
-import '../App.css'
+import { Box, Button, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import '../App.css';
 
-const DashboardPage: React.FC = () => {
-  const [count, setCount] = useState(0)
+export const DashboardPage: React.FC = () => {
+  const navigate = useNavigate();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <Box 
+          sx={{ 
+            textAlign: 'center', 
+            p: { xs: 4, md: 6 }, 
+            bgcolor: 'background.paper', 
+            borderRadius: 4, 
+            boxShadow: 4,
+            maxWidth: 600,
+            mx: 'auto',
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))'
+          }}
+        >
+          <Typography variant="h4" fontWeight={600} color='#880022' gutterBottom>
+            Banco de Soluções do AgroConecta
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Encontre e compartilhe soluções inovadoras para o agronegócio.
+          </Typography>
 
-export default DashboardPage
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 12 }}>
+            <Button
+              sx={{
+                bgcolor: '#880022', 
+                color: 'white', 
+                px: 3, py: 1.2,
+                borderRadius: 3,
+                fontSize: '1rem',
+                fontWeight: 600,
+                transition: '0.3s',
+                '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
+              }} 
+              onClick={() => navigate('/solutions')}
+            >
+              Ver Soluções
+            </Button>
+
+            <Button
+              sx={{
+                bgcolor: '#880022', 
+                color: 'white', 
+                px: 3, py: 1.2,
+                borderRadius: 3,
+                fontSize: '1rem',
+                fontWeight: 600,
+                transition: '0.3s',
+                '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
+              }} 
+              onClick={() => navigate('/storage-solution')}
+            >
+              Adicionar Solução
+            </Button>
+          </Box>
+        </Box>
+      </motion.div>
+    </Container>
+  );
+};
+
+export default DashboardPage;
