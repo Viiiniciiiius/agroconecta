@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from './pages/DashboardPage';
 import CreateSolutionPage from './pages/CreateSolutionPage';
+import ViewSolutionsPage from './pages/ViewSolutionPage';
 import './App.css'
 
 /**
@@ -13,6 +14,7 @@ const Router: React.FC = () => {
     <Routes>
       <Route path="/" element={<DashboardPage />} />
       <Route path="/storage-solution" element={<CreateSolutionPage />} />
+      <Route path="/solutions" element={<ViewSolutionsPage />} />
     </Routes>
   )
 }

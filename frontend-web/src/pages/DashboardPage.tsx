@@ -21,7 +21,6 @@ export const DashboardPage: React.FC = () => {
             borderRadius: 4, 
             boxShadow: 4,
             maxWidth: 600,
-            mx: 'auto',
             background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))'
           }}
         >
