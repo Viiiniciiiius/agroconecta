@@ -5,8 +5,9 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { getSolutions } from '../api/solution';
+//import { getSolutions } from '../api/solution';
 import { SolutionCardProps } from '../types/solution';
+import { solutionsSeed } from '../utils/solutionsSeed';
 
 export const ViewSolutionsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,21 +17,23 @@ export const ViewSolutionsPage: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const itemsPerPage = 6;
 
-  const fetchSolutions = async () => {
+  const fetchSolutions = React.useCallback(async () => {
     setLoading(true);
     try {
-      const data = await getSolutions(selectedCategory);
+      const data = solutionsSeed.filter(solution => 
+        selectedCategory ? solution.category === selectedCategory : true
+      );
       setSolutions(data);
     } catch (error) {
       console.error('Erro ao buscar soluções:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedCategory]);
 
   useEffect(() => {
     fetchSolutions();
-  }, [selectedCategory]);
+  }, [fetchSolutions]);
 
   const handleCategoryChange = (e: SelectChangeEvent<string>) => {
     setSelectedCategory(e.target.value as string);

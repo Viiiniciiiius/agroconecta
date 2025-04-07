@@ -14,7 +14,6 @@ import { errorHandler } from 'utils/errorHandler';
 import mongoosePlugin from 'plugins/mongoose';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
-import authRoutes from 'routes/auth';
 import solutionRoutes from 'routes/solution';
 /**
  * Creates and configures the main Fastify application instance
@@ -40,7 +39,7 @@ import solutionRoutes from 'routes/solution';
  * @example
  * // Usage in index.ts
  * import app from './app'
- * await app.listen({ port: 4022 })
+ * await app.listen({ port: 4023 })
  */
 
 // Environment configuration
@@ -72,7 +71,7 @@ if (process.env.NODE_ENV === 'development') {
         description: 'API Documentation for Todos Ganham',
         version: '1.0.0',
       },
-      host: 'localhost:4022',
+      host: 'localhost:4023',
       schemes: ['http'],
       consumes: ['application/json'],
       produces: ['application/json'],
@@ -108,7 +107,6 @@ if (process.env.NODE_ENV === 'development') {
  * Mounts API endpoints with their respective prefixes
  */
 
-await app.register(authRoutes, { prefix: '/auth' });
 await app.register(solutionRoutes, { prefix: '/solutions' });
 
 export default app;

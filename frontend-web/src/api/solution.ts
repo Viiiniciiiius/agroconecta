@@ -1,6 +1,6 @@
-import { CreateSolutionForm, UpdateSolutionForm } from '../types/solution';
+import { CreateSolutionForm } from '../types/solution';
 
-const API_URL = 'http://localhost:2022/solution';
+const API_URL = 'http://localhost:2023/solution';
 
 export const getSolutions = async (category: string) => {
     const queryParams = new URLSearchParams();
@@ -26,18 +26,6 @@ export const getSolution = async (id: string) => {
 export const createSolution = async (solution: CreateSolutionForm) => {
     const response = await fetch(`${API_URL}/create`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(solution),
-    });
-    const data = await response.json();
-    return data;
-};
-
-export const updateSolution = async (id: string, solution: UpdateSolutionForm) => {
-    const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },

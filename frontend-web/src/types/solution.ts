@@ -5,22 +5,24 @@ export interface SolutionCardProps {
   priceDollar?: number;
 }
 
-export interface CreateSolutionForm {
-    title: string
-    category: 'product' | 'service' | 'scientific_article' | 'machinery'
-    details?: string
-    priceDollar?: number
-    link?: string
-    publishDate: Date
-    starRating?: number
+export interface SolutionDetailsProps {
+    id: string;
+    title: string;
+    category: 'product' | 'service' | 'scientific_article' | 'machinery';
+    details?: string;
+    priceDollar?: number;
+    link?: string;
+    publishDate: Date;
+    starRating?: number;
     ownerContact?: {
-        email?: string
-        phone?: string
-        other?: string
-    }
+        email?: string;
+        phone?: string;
+        other?: string;
+    };
 }
 
-export interface UpdateSolutionForm {
+
+export interface CreateSolutionForm {
     title: string
     category: 'product' | 'service' | 'scientific_article' | 'machinery'
     details?: string

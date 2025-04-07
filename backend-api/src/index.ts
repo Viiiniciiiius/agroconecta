@@ -35,7 +35,7 @@ export const config = {
 if (process.env.NODE_ENV !== 'production') {
   const startServer = async () => {
     try {
-      await app.listen({ port: 4022, host: '0.0.0.0' });
+      await app.listen({ port: 4023, host: '0.0.0.0' });
       console.log(`Server listening at ${app.server.address()}`);
     } catch (err) {
       app.log.error(err);
