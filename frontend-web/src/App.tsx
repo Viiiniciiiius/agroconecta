@@ -4,6 +4,8 @@ import DashboardPage from './pages/DashboardPage';
 import CreateSolutionPage from './pages/CreateSolutionPage';
 import ViewSolutionsPage from './pages/ViewSolutionPage';
 import './App.css'
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './utils/theme';
 
 /**
  * Creates a react-router-dom browser router with the routes of the application.
@@ -25,9 +27,11 @@ const Router: React.FC = () => {
  */
 export const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

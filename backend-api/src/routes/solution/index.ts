@@ -7,14 +7,12 @@ import {
   createSolutionHandler,
   getSolutionsHandler,
   getSolutionByIdHandler,
-  updateSolutionHandler,
   deleteSolutionHandler,
 } from './handlers';
 import { 
   createSolutionSchema,
   getSolutionsSchema,
   getSolutionByIdSchema,
-  updateSolutionSchema,
   deleteSolutionSchema,
 } from './schema';
 
@@ -29,7 +27,6 @@ import {
  * - POST /create: Create a new solution
  * - GET /: Get all solutions
  * - GET /:id: Get a solution by ID
- * - PUT /:id: Update a solution by ID
  * - DELETE /:id: Delete a solution by ID
  */
 export default async function solutionRoutes(fastify: FastifyInstance) {
@@ -38,8 +35,6 @@ export default async function solutionRoutes(fastify: FastifyInstance) {
     fastify.get('/', { schema: getSolutionsSchema }, getSolutionsHandler);
     
     fastify.get('/:id', { schema: getSolutionByIdSchema }, getSolutionByIdHandler);
-
-    fastify.put('/:id', { schema: updateSolutionSchema }, updateSolutionHandler);
 
     fastify.delete('/:id', { schema: deleteSolutionSchema }, deleteSolutionHandler);
 }

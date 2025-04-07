@@ -1,3 +1,10 @@
+import mongoose from 'mongoose';
+import {
+  CreateSolutionRequest,
+  DeleteSolutionRequest,
+  GetSolutionsRequest,
+  GetSolutionByIdRequest,
+} from 'routes/solution/solution.types';
 import { ISolution, SolutionModel } from 'models/solution';
 
 /**
@@ -5,10 +12,10 @@ import { ISolution, SolutionModel } from 'models/solution';
  * @param {Partial<ISolution>} solutionData - The solution data.
  * @returns {Promise<ISolution>} The created solution.
  */
-export const createSolution = async (solutionData: Partial<ISolution>): Promise<ISolution> => {
-  const solution = new SolutionModel(solutionData);
-  await solution.save();
-  return solution;
+export const createSolution = async (solutionData: CreateSolutionRequest): Promise<ISolution> => {
+  const newSolution = new SolutionModel(solutionData);
+  await newSolution.save();
+  return newSolution;
 };
 
 /**
@@ -16,7 +23,16 @@ export const createSolution = async (solutionData: Partial<ISolution>): Promise<
  * @returns {Promise<ISolution[]>} The list of solutions.
  */
 export const getSolutions = async (): Promise<ISolution[]> => {
-  return await SolutionModel.find();
+  const solutions = await SolutionModel.find();
+  return solutions.map((solution: ISolution) => {
+    const solutionObject = solution.toObject();
+    return {
+      ...solutionObject,
+      publishDate: solutionObject.publishDate instanceof Date
+        ? solutionObject.publishDate.toISOString()
+        : null,
+    };
+  });
 };
 
 /**
@@ -26,16 +42,6 @@ export const getSolutions = async (): Promise<ISolution[]> => {
  */
 export const getSolutionById = async (_id: string): Promise<ISolution | null> => {
   return await SolutionModel.findById(_id);
-};
-
-/**
- * Updates a solution by ID.
- * @param {string} _id - The solution ID.
- * @param {Partial<ISolution>} updateData - The update data.
- * @returns {Promise<ISolution | null>} The updated solution or null if not found.
- */
-export const updateSolution = async (_id: string, updateData: Partial<ISolution>): Promise<ISolution | null> => {
-  return await SolutionModel.findByIdAndUpdate(_id, updateData, { new: true });
 };
 
 /**

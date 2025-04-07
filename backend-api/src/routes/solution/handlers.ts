@@ -5,14 +5,12 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import {
     createSolution,
-    updateSolution,
     deleteSolution,
     getSolutions,
     getSolutionById,
 } from 'controllers/solutionController';
 import {
     CreateSolutionRequest,
-    UpdateSolutionRequest,
     DeleteSolutionRequest,
     GetSolutionsRequest,
     GetSolutionByIdRequest,
@@ -52,27 +50,12 @@ export async function getSolutionByIdHandler(
  * Handles solution creation requests
 */
 export async function createSolutionHandler(
-    request: FastifyRequest<{ Querystring: CreateSolutionRequest }>,
+    request: FastifyRequest<{ Body: CreateSolutionRequest }>,
     reply: FastifyReply,
 ) {
     try {
         const solution = await createSolution(request.body);
         reply.code(201).send(solution);
-    } catch (error) {
-        reply.code(400).send({ error: error.message });
-    }
-}
-
-/**
- * Handles solution update requests
- */
-export async function updateSolutionHandler(
-    request: FastifyRequest<{ Params: UpdateSolutionRequest['params'], Body: UpdateSolutionRequest['body'] }>,
-    reply: FastifyReply,
-) {
-    try {
-        const solution = await updateSolution(request.params._id, request.body);
-        reply.code(200).send(solution);
     } catch (error) {
         reply.code(400).send({ error: error.message });
     }

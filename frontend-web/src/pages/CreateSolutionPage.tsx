@@ -129,6 +129,7 @@ export const CreateSolutionPage: React.FC = () => {
               label="Preço (em $)"
               name="priceDollar"
               type="number"
+              inputProps={{ inputMode: 'decimal', pattern: '^[0-9.,]*$' }}
               value={formData.priceDollar || ''}
               onChange={handleChange}
               fullWidth
@@ -148,7 +149,7 @@ export const CreateSolutionPage: React.FC = () => {
               label="Avaliação (de 0 a 5)"
               name="starRating"
               type="number"
-              inputProps={{ min: 0, max: 5, step: 0.1 }}
+              inputProps={{ inputMode: 'decimal', pattern: '^[0-9.,]*$' }}
               value={formData.starRating || ''}
               onChange={handleChange}
               fullWidth

@@ -3,22 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
 import { motion } from 'framer-motion';
 import { getSolution } from '../api/solution';
-
-export interface SolutionDetailsProps {
-  id: string;
-  title: string;
-  category: 'product' | 'service' | 'scientific_article' | 'machinery';
-  details?: string;
-  priceDollar?: number;
-  link?: string;
-  publishDate: Date;
-  starRating?: number;
-  ownerContact?: {
-    email?: string;
-    phone?: string;
-    other?: string;
-  };
-}
+import { SolutionDetailsProps } from '../types/solution';
 
 export const SolutionDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

@@ -13,16 +13,6 @@ export interface CreateSolutionRequest {
   };
 }
 
-export interface UpdateSolutionRequest {
-  params: {
-    _id: string;
-  };
-  body: {
-    title?: string;
-    description?: string;
-  };
-}
-
 export interface DeleteSolutionRequest {
     _id: string;
 }
