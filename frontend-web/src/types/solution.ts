@@ -21,7 +21,6 @@ export interface SolutionDetailsProps {
     };
 }
 
-
 export interface CreateSolutionForm {
     title: string
     category: 'product' | 'service' | 'scientific_article' | 'machinery'

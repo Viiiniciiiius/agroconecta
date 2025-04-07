@@ -5,9 +5,9 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-//import { getSolutions } from '../api/solution';
+import { getSolutions } from '../api/solution';
 import { SolutionCardProps } from '../types/solution';
-import { solutionsSeed } from '../utils/solutionsSeed';
+//import { solutionsSeed } from '../utils/solutionsSeed';
 
 export const ViewSolutionsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -20,9 +20,12 @@ export const ViewSolutionsPage: React.FC = () => {
   const fetchSolutions = React.useCallback(async () => {
     setLoading(true);
     try {
-      const data = solutionsSeed.filter(solution => 
+      const data = 
+      /*solutionsSeed.filter(solution => 
         selectedCategory ? solution.category === selectedCategory : true
-      );
+      );*/
+      await getSolutions(selectedCategory);
+
       setSolutions(data);
     } catch (error) {
       console.error('Erro ao buscar soluções:', error);
@@ -74,7 +77,7 @@ export const ViewSolutionsPage: React.FC = () => {
           }}
         >
           <Typography variant="h4" fontWeight={600} color="#880022" gutterBottom>
-            View Solutions
+            Ver Soluções
           </Typography>
           <FormControl fullWidth sx={{ mt: 2 }}>
             <InputLabel id="filter-category-label">Filtrar por categoria</InputLabel>
@@ -100,7 +103,7 @@ export const ViewSolutionsPage: React.FC = () => {
         transition={{ duration: 0.6 }}
       >
         {loading ? (
-          <Typography variant="body1" align="center">Carregando soluções...</Typography>
+          <Typography variant="body1" color='#880022' align="center">Carregando soluções...</Typography>
         ) : (
           <Grid container spacing={2}>
             {currentSolutions.map(solution => (
