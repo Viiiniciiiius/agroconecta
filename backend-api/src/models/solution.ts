@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface ISolution extends Document {
   title: string;
@@ -31,4 +31,4 @@ const SolutionSchema: Schema = new Schema({
 });
 
 export const SolutionModel = 
-  mongoose.models.Solution || mongoose.model<ISolution>('Solution', SolutionSchema);
+  (mongoose.models.Solution as Model<ISolution>) || mongoose.model<ISolution>('Solution', SolutionSchema);

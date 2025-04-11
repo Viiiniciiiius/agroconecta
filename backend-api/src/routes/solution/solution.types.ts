@@ -13,16 +13,6 @@ export interface CreateSolutionRequest {
   };
 }
 
-export interface DeleteSolutionRequest {
-    _id: string;
-}
-
 export interface GetSolutionsRequest {
-    query: {
-        category: string;
-    };
-}
-
-export interface GetSolutionByIdRequest {
-    _id: string;
+    category: string;
 }

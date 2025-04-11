@@ -11,20 +11,17 @@ import {
 } from 'controllers/solutionController';
 import {
     CreateSolutionRequest,
-    DeleteSolutionRequest,
-    GetSolutionsRequest,
-    GetSolutionByIdRequest,
 } from './solution.types';
 
 /**
  * Handles solution retrieval requests
  */
 export async function getSolutionsHandler(
-    request: FastifyRequest<{ Params: GetSolutionsRequest }>,
+    request: FastifyRequest<{ Body: { category: string } }>,
     reply: FastifyReply,
 ) {
     try {
-        const solution = await getSolutions();
+        const solution = await getSolutions({ category: request.body.category });
         reply.code(200).send(solution);
     } catch (error) {
         reply.code(404).send({ error: error.message });
@@ -35,7 +32,7 @@ export async function getSolutionsHandler(
  * Handles solution retrieval requests
  */
 export async function getSolutionByIdHandler(
-    request: FastifyRequest<{ Params: GetSolutionByIdRequest }>,
+    request: FastifyRequest<{ Params: { _id: string } }>,
     reply: FastifyReply,
 ) {
     try {
@@ -65,7 +62,7 @@ export async function createSolutionHandler(
  * Handles solution deletion requests
  */
 export async function deleteSolutionHandler(
-    request: FastifyRequest<{ Params: DeleteSolutionRequest }>,
+    request: FastifyRequest<{ Params: { _id: string } }>,
     reply: FastifyReply,
 ) {
     try {

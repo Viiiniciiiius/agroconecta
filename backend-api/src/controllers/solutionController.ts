@@ -1,9 +1,6 @@
-import mongoose from 'mongoose';
 import {
   CreateSolutionRequest,
-  DeleteSolutionRequest,
   GetSolutionsRequest,
-  GetSolutionByIdRequest,
 } from 'routes/solution/solution.types';
 import { ISolution, SolutionModel } from 'models/solution';
 
@@ -20,10 +17,14 @@ export const createSolution = async (solutionData: CreateSolutionRequest): Promi
 
 /**
  * Retrieves all solutions.
+ * @param {GetSolutionsRequest} category - The category of solutions to retrieve.
  * @returns {Promise<ISolution[]>} The list of solutions.
  */
-export const getSolutions = async (): Promise<ISolution[]> => {
-  const solutions = await SolutionModel.find();
+export const getSolutions = async (category: GetSolutionsRequest): Promise<ISolution[]> => {
+  const filter = category ? { category } : {};
+
+  const solutions = await SolutionModel.find(filter);
+
   return solutions.map((solution: ISolution) => {
     const solutionObject = solution.toObject();
     return {
@@ -34,6 +35,7 @@ export const getSolutions = async (): Promise<ISolution[]> => {
     };
   });
 };
+
 
 /**
  * Retrieves a single solution by ID.

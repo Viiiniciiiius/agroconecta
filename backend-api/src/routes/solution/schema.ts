@@ -49,6 +49,13 @@ export const createSolutionSchema = {
 };
 
 export const getSolutionsSchema = {
+  body: {
+    type: 'object',
+    required: ['category'],
+    properties: {
+      category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery'] },
+    },
+  },
   response: {
     200: {
       type: 'array',

@@ -3,15 +3,13 @@ import { CreateSolutionForm } from '../types/solution';
 const API_URL = 'http://localhost:2023/solution';
 
 export const getSolutions = async (category: string) => {
-    const queryParams = new URLSearchParams();
-    if (category?.length)
-    queryParams.append('category', category);
 
-    const response = await fetch(`${API_URL}/?${queryParams.toString()}`, {
+    const response = await fetch(`${API_URL}/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(category),
       });
     const data = await response.json();
     return data;

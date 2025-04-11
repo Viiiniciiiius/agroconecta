@@ -22,13 +22,11 @@ async function mongoosePlugin(fastify: FastifyInstance) {
   try {
     console.log('Connecting to MongoDB...');
     fastify.log.info(
-      `db settings: ${process.env.MONGO_HOST}, ${process.env.MONGO_DBNAME}, ${process.env.MONGO_USER}`,
+      `db settings: ${process.env.MONGO_HOST}`,
     );
 
     // Add a timeout to prevent hanging
-    const connectionPromise = mongoose.connect(process.env.MONGO_HOST!, {
-      dbName: process.env.MONGO_DBNAME,
-    });
+    const connectionPromise = mongoose.connect(process.env.MONGO_HOST);
 
     const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error('MongoDB connection timeout')), 10000) // 10 seconds timeout

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
 import { motion } from 'framer-motion';
-import { getSolution } from '../api/solution';
+import { getSolution, deleteSolution } from '../api/solution';
 import { SolutionDetailsProps } from '../types/solution';
 
 export const SolutionDetailsPage: React.FC = () => {
@@ -14,7 +14,6 @@ export const SolutionDetailsPage: React.FC = () => {
     if (!id) {
       return;
     }
-
     const fetchSolution = async () => {
       setLoading(true);
       try {
@@ -29,6 +28,17 @@ export const SolutionDetailsPage: React.FC = () => {
 
     fetchSolution();
   }, [id]);
+
+  const handleDelete = async () => {
+    if (!id) {
+      return;
+    }
+    try {
+      await deleteSolution(id);
+    } catch (error) {
+      console.error('Erro ao excluir solução:', error);
+    }
+  };
 
   if (!id) {
     return (
@@ -124,6 +134,23 @@ export const SolutionDetailsPage: React.FC = () => {
                 </>
               )}
             </CardContent>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  backgroundColor: '#880022',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                }}
+                onClick={handleDelete}
+              >
+                Excluir Solução
+              </motion.button>
+            </Box>
           </Card>
         </Box>
       </motion.div>
