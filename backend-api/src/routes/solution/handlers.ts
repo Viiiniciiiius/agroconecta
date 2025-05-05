@@ -18,11 +18,11 @@ import {
  * Handles solution retrieval requests
  */
 export async function getSolutionsHandler(
-    request: FastifyRequest<{ Body: GetSolutionsRequest }>,
+    request: FastifyRequest<{ Querystring: GetSolutionsRequest }>,
     reply: FastifyReply,
 ) {
     try {
-        const solution = await getSolutions(request.body);
+        const solution = await getSolutions(request.query);
         reply.code(200).send(solution);
     } catch (error) {
         reply.code(404).send({ error: error.message });

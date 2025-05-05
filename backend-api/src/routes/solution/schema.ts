@@ -49,7 +49,7 @@ export const createSolutionSchema = {
 };
 
 export const getSolutionsSchema = {
-  body: {
+  querystring: {
     type: 'object',
     required: ['category'],
     properties: {
