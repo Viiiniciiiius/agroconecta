@@ -2,6 +2,7 @@
  * @fileoverview Solution route handlers for creating, updating, and deleting solutions
  * Implements request handling for solution management endpoints
 */
+import { GetSolutionsRequest } from 'routes/solution/solution.types';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import {
     createSolution,
@@ -17,11 +18,11 @@ import {
  * Handles solution retrieval requests
  */
 export async function getSolutionsHandler(
-    request: FastifyRequest<{ Body: { category: string } }>,
+    request: FastifyRequest<{ Body: GetSolutionsRequest }>,
     reply: FastifyReply,
 ) {
     try {
-        const solution = await getSolutions({ category: request.body.category });
+        const solution = await getSolutions(request.body);
         reply.code(200).send(solution);
     } catch (error) {
         reply.code(404).send({ error: error.message });

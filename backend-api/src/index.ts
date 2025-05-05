@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 /**
  * @fileoverview Entry point for the Fastify backend API server.
  * Handles both serverless deployment and local development scenarios.
@@ -27,21 +30,3 @@ export default async function handler(
 export const config = {
   regions: ['gru1'],
 };
-
-/**
- * Local development server setup.
- * Only runs when not in production environment.
- */
-if (process.env.NODE_ENV !== 'production') {
-  const startServer = async () => {
-    try {
-      await app.listen({ port: 4023, host: '0.0.0.0' });
-      console.log(`Server listening at ${app.server.address()}`);
-    } catch (err) {
-      app.log.error(err);
-      process.exit(1);
-    }
-  };
-
-  startServer();
-}
