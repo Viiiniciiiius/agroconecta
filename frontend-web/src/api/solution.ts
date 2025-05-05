@@ -1,6 +1,7 @@
 import { CreateSolutionForm } from '../types/solution';
 
-const API_URL = 'http://localhost:2023/solution';
+const API_URL = //'localhost:4023/solutions';
+'http://localhost:4023/solutions';
 
 export const getSolutions = async (category: string) => {
 

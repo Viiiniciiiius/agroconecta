@@ -13,9 +13,6 @@ import { FastifyInstance } from 'fastify';
  * @throws {Error} If connection to MongoDB fails
  *
  * @requires process.env.MONGO_HOST - MongoDB connection string
- * @requires process.env.MONGO_DBNAME - Database name
- * @requires process.env.MONGO_USER - MongoDB username
- * @requires process.env.MONGO_PWD - MongoDB password
  *
  */
 async function mongoosePlugin(fastify: FastifyInstance) {
