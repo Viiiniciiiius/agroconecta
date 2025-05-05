@@ -4,13 +4,12 @@ const API_URL = 'http://localhost:2023/solution';
 
 export const getSolutions = async (category: string) => {
 
-    const response = await fetch(`${API_URL}/`, {
+    const response = await fetch(`${API_URL}?category=${encodeURIComponent(category)}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(category),
-      });
+    });
     const data = await response.json();
     return data;
 };
