@@ -39,6 +39,7 @@ async function mongoosePlugin(fastify: FastifyInstance) {
   } catch (error) {
     fastify.log.error('Error connecting to MongoDB');
     fastify.log.error(error);
+    console.error('Error connecting to MongoDB', error);
     throw error;
   }
 }
