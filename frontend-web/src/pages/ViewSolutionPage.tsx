@@ -11,7 +11,7 @@ import { SolutionCardProps } from '../types/solution';
 
 export const ViewSolutionsPage: React.FC = () => {
   const navigate = useNavigate();
-  const [solutions, setSolutions] = useState<SolutionCardProps[]>([]);
+  const [solutions, setSolutions] = useState<SolutionCardProps[]>(() => []);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [page, setPage] = useState<number>(1);
@@ -50,7 +50,9 @@ export const ViewSolutionsPage: React.FC = () => {
   // Lógica de paginação (client-side)
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentSolutions = solutions.slice(indexOfFirstItem, indexOfLastItem);
+  const currentSolutions = Array.isArray(solutions)
+    ? solutions.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
   const totalPages = Math.ceil(solutions.length / itemsPerPage);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
