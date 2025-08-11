@@ -12,10 +12,10 @@ export const CreateSolutionPage: React.FC = () => {
   const [formData, setFormData] = useState<CreateSolutionForm>({
     title: '',
     category: 'product',
-    details: '',
+    description: '',
     priceDollar: undefined,
     link: '',
-    publishDate: new Date,
+    publishDate: new Date().toISOString(),
     starRating: undefined,
     ownerContact: {
       email: '',
@@ -59,7 +59,29 @@ export const CreateSolutionPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createSolution(formData);
+
+    const priceString = formData.priceDollar === undefined ? '' : String(formData.priceDollar);
+    const parsedPriceDollar = parseFloat(priceString);
+
+    const ratingString = formData.starRating === undefined ? '' : String(formData.starRating);
+    const parsedStarRating = parseInt(ratingString, 10);
+
+    const dataToSend: CreateSolutionForm = {
+      ...formData,
+      priceDollar: isNaN(parsedPriceDollar) ? undefined : parsedPriceDollar,
+      starRating: isNaN(parsedStarRating) ? undefined : parsedStarRating,
+      // publishDate é mantido como objeto Date, JSON.stringify cuidará da conversão para ISO string
+    };
+
+    try {
+      console.log('📤 Enviando dados do formulário:', dataToSend);
+      await createSolution(dataToSend);
+      // TODO: Adicionar feedback para o usuário (ex: redirect, mensagem de sucesso)
+      console.log('✅ Solução criada com sucesso!', dataToSend); 
+    } catch (error) {
+      console.error('❌ Erro ao criar solução:', error);
+      // TODO: Mostrar erro para o usuário
+    }
   };
 
   return (
@@ -116,8 +138,8 @@ export const CreateSolutionPage: React.FC = () => {
 
             <TextField
               label="Detalhes"
-              name="details"
-              value={formData.details}
+              name="description"
+              value={formData.description}
               onChange={handleChange}
               fullWidth
               multiline

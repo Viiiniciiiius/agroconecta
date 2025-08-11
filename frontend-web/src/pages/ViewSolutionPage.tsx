@@ -20,11 +20,10 @@ export const ViewSolutionsPage: React.FC = () => {
   const fetchSolutions = React.useCallback(async () => {
     setLoading(true);
     try {
-      const data = 
+      const data = await getSolutions(selectedCategory);
       /*solutionsSeed.filter(solution => 
         selectedCategory ? solution.category === selectedCategory : true
       );*/
-      await getSolutions(selectedCategory);
 
       setSolutions(data);
     } catch (error) {
@@ -44,6 +43,7 @@ export const ViewSolutionsPage: React.FC = () => {
   };
 
   const handleCardClick = (id: string) => {
+    console.log('Navigating to solution with ID:', id);
     navigate(`/solution/${id}`);
   };
 

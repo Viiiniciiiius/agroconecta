@@ -1,22 +1,47 @@
 export const createSolutionSchema = {
   body: {
     type: 'object',
-    required: ['title', 'description', 'category', 'publishDate'],
+    required: ['title', 'category', 'description'] as string[],
     properties: {
-      title: { type: 'string' },
-      description: { type: 'string' },
-      category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery'] },
-      details: { type: 'string' },
-      priceDollar: { type: 'number' },
-      link: { type: 'string' },
-      publishDate: { type: 'string', format: 'date-time' },
-      starRating: { type: 'number' },
+      title: { 
+        type: 'string',
+        minLength: 1,
+        maxLength: 200
+      },
+      description: { 
+        type: 'string',
+        minLength: 1,
+        maxLength: 2000
+      },
+      category: { 
+        type: 'string', 
+        enum: ['product', 'service', 'scientific_article', 'machinery'] 
+      },
+      priceDollar: { 
+        type: 'number',
+        minimum: 0
+      },
+      link: { 
+        type: 'string',
+        format: 'uri'
+      },
+      publishDate: { 
+        type: 'string', 
+        format: 'date-time' 
+      },
+      starRating: { 
+        type: 'number',
+        minimum: 0,
+        maximum: 5
+      },
       ownerContact: {
         type: 'object',
+        required: [] as string[],
+        additionalProperties: false,
         properties: {
           email: { type: 'string' },
           phone: { type: 'string' },
-          other: { type: 'string' },
+          other: { type: 'string', maxLength: 500 },
         },
       },
     },
@@ -25,7 +50,7 @@ export const createSolutionSchema = {
     201: {
       type: 'object',
       properties: {
-        _id: { type: 'string' },
+        id: { type: 'string' },
         title: { type: 'string' },
         description: { type: 'string' },
         category: { type: 'string' },
@@ -51,7 +76,7 @@ export const createSolutionSchema = {
 export const getSolutionsSchema = {
   querystring: {
     type: 'object',
-    required: ['category'],
+    required: [] as string[],
     properties: {
       category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery'] },
     },
@@ -62,7 +87,7 @@ export const getSolutionsSchema = {
       items: {
         type: 'object',
         properties: {
-          _id: { type: 'string' },
+          id: { type: 'string' },
           title: { type: 'string' },
           description: { type: 'string' },
           category: { type: 'string' },
@@ -89,7 +114,7 @@ export const getSolutionsSchema = {
 export const getSolutionByIdSchema = {
   params: {
     type: 'object',
-    required: ['id'],
+    required: ['id'] as string[],
     properties: {
       id: { type: 'string' },
     },
@@ -98,7 +123,7 @@ export const getSolutionByIdSchema = {
     200: {
       type: 'object',
       properties: {
-        _id: { type: 'string' },
+        id: { type: 'string' },
         title: { type: 'string' },
         description: { type: 'string' },
         category: { type: 'string' },
@@ -124,7 +149,7 @@ export const getSolutionByIdSchema = {
 export const deleteSolutionSchema = {
   params: {
     type: 'object',
-    required: ['id'],
+    required: ['id'] as string[],
     properties: {
       id: { type: 'string' },
     },

@@ -4,8 +4,12 @@ const API_URL = //'localhost:4023/solutions';
 'http://localhost:4023/solutions';
 
 export const getSolutions = async (category: string) => {
+    let url = API_URL;
+    if (category && category.trim() !== '') {
+        url += `?category=${encodeURIComponent(category)}`;
+    }
 
-    const response = await fetch(`${API_URL}?category=${encodeURIComponent(category)}`, {
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -17,11 +21,15 @@ export const getSolutions = async (category: string) => {
 
 export const getSolution = async (id: string) => {
     const response = await fetch(`${API_URL}/${id}`);
+    if (!response.ok) {
+        throw new Error(`Erro ao buscar solução: ${response.status}`);
+    }
     const data = await response.json();
     return data;
 };
 
 export const createSolution = async (solution: CreateSolutionForm) => {
+    console.log('📤 Enviando dados:', solution);
     const response = await fetch(`${API_URL}/create`, {
         method: 'POST',
         headers: {
@@ -29,7 +37,15 @@ export const createSolution = async (solution: CreateSolutionForm) => {
         },
         body: JSON.stringify(solution),
     });
-    const data = await response.json();
+
+    if (!response.ok) {
+        const errorBody = await response.text(); // Tenta ler o corpo do erro como texto
+        console.error('❌ Erro na resposta:', response.status, errorBody);
+        throw new Error(`Request failed with status ${response.status}. Body: ${errorBody}`);
+    }
+
+    const data = await response.json(); // Só faz o parse como JSON se a resposta for OK
+    console.log('✅ Resposta recebida:', data);
     return data;
 };
 
@@ -37,6 +53,9 @@ export const deleteSolution = async (id: string) => {
     const response = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
     });
+    if (!response.ok) {
+        throw new Error(`Erro ao deletar solução: ${response.status}`);
+    }
     const data = await response.json();
     return data;
 };

@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import app from './app';
+
 dotenv.config();
 
 /**
  * @fileoverview Entry point for the Fastify backend API server.
  * Handles both serverless deployment and local development scenarios.
  */
-
-import { FastifyReply, FastifyRequest } from 'fastify';
-import app from './app';
 
 /**
  * Handler function for Vercel deployment.
@@ -30,3 +30,19 @@ export default async function handler(
 export const config = {
   regions: ['gru1'],
 };
+
+// Start server for local development
+if (process.env.NODE_ENV !== 'production') {
+  const startServer = async () => {
+    try {
+      await app.ready();
+      await app.listen({ port: 4023, host: '0.0.0.0' });
+      console.log('🚀 Server running on http://localhost:4023');
+    } catch (err) {
+      console.error('❌ Error starting server:', err);
+      process.exit(1);
+    }
+  };
+
+  startServer();
+}

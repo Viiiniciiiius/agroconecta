@@ -6,6 +6,7 @@ import ViewSolutionsPage from './pages/ViewSolutionPage';
 import './App.css'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils/theme';
+import { SolutionDetailsPage } from './pages/DetalhesPage';
 
 /**
  * Creates a react-router-dom browser router with the routes of the application.
@@ -17,7 +18,7 @@ const Router: React.FC = () => {
       <Route path="/" element={<DashboardPage />} />
       <Route path="/storage-solution" element={<CreateSolutionPage />} />
       <Route path="/solutions" element={<ViewSolutionsPage />} />
-      <Route path="/solution/:id" element={<CreateSolutionPage />} />
+      <Route path="/solution/:id" element={<SolutionDetailsPage />} />
     </Routes>
   )
 }

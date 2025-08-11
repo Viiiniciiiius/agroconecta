@@ -12,7 +12,7 @@ export interface SolutionDetailsProps {
     details?: string;
     priceDollar?: number;
     link?: string;
-    publishDate: Date;
+    publishDate: string;
     starRating?: number;
     ownerContact?: {
         email?: string;
@@ -24,10 +24,10 @@ export interface SolutionDetailsProps {
 export interface CreateSolutionForm {
     title: string
     category: 'product' | 'service' | 'scientific_article' | 'machinery'
-    details?: string
+    description?: string
     priceDollar?: number
     link?: string
-    publishDate: Date
+    publishDate: string
     starRating?: number
     ownerContact?: {
         email?: string

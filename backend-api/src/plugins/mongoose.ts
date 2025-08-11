@@ -17,26 +17,51 @@ import { FastifyInstance } from 'fastify';
  */
 async function mongoosePlugin(fastify: FastifyInstance) {
   try {
-    console.log('Connecting to MongoDB...');
-    fastify.log.info(
-      `db settings: ${process.env.MONGO_HOST}`,
-    );
+    console.log('🔌 Connecting to MongoDB Atlas...');
+    
+    if (!process.env.MONGO_HOST) {
+      throw new Error('MONGO_HOST environment variable is not set');
+    }
+    
+    fastify.log.info(`Database URL: ${process.env.MONGO_HOST.replace(/\/\/.*@/, '//***:***@')}`);
 
-    // Add a timeout to prevent hanging
-    const connectionPromise = mongoose.connect(process.env.MONGO_HOST);
+    // Configure mongoose options for Atlas
+    const mongooseOptions = {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 45000,
+      bufferCommands: false,
+      retryWrites: true
+    };
 
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('MongoDB connection timeout')), 10000) // 10 seconds timeout
-    );
+    // Connect with better error handling
+    await mongoose.connect(process.env.MONGO_HOST, mongooseOptions);
 
-    await Promise.race([connectionPromise, timeoutPromise]);
-
+    // Test the connection
+    await mongoose.connection.db.admin().ping();
+    
     fastify.decorate('mongoose', mongoose);
-    console.log('MongoDB connected successfully');
+    console.log('✅ MongoDB Atlas connected successfully');
+    
+    // Handle connection events
+    mongoose.connection.on('error', (err) => {
+      console.error('❌ MongoDB connection error:', err);
+    });
+    
+    mongoose.connection.on('disconnected', () => {
+      console.log('🔌 MongoDB disconnected');
+    });
+    
   } catch (error) {
-    fastify.log.error('Error connecting to MongoDB');
-    fastify.log.error(error);
-    console.error('Error connecting to MongoDB', error);
+    console.error('❌ Error connecting to MongoDB Atlas:', error);
+    fastify.log.error('Error connecting to MongoDB Atlas:', error);
+    
+    // Provide helpful error messages
+    if (error.message.includes('whitelist')) {
+      console.error('💡 Tip: Add your IP to MongoDB Atlas Network Access whitelist');
+      console.error('   Your current IP: 45.166.22.254');
+    }
+    
     throw error;
   }
 }

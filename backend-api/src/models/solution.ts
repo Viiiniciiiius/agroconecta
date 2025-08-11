@@ -13,6 +13,8 @@ export interface ISolution extends Document {
     phone?: string;
     other?: string;
   };
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const SolutionSchema: Schema = new Schema({
@@ -28,7 +30,7 @@ const SolutionSchema: Schema = new Schema({
     phone: { type: String },
     other: { type: String }
   }
-});
+}, { timestamps: true });
 
 export const SolutionModel = 
   (mongoose.models.Solution as Model<ISolution>) || mongoose.model<ISolution>('Solution', SolutionSchema);

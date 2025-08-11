@@ -7,12 +7,38 @@ export interface ISolution {
 }
 
 export interface CreateSolutionRequest {
-  body: {
-    title: string;
-    description: string;
+  title: string;
+  category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  description?: string;
+  priceDollar?: number;
+  link?: string;
+  publishDate: string;
+  starRating?: number;
+  ownerContact?: {
+    email?: string;
+    phone?: string;
+    other?: string;
   };
 }
 
 export interface GetSolutionsRequest {
-    category: string;
+    category?: string;
+}
+
+export interface SolutionApiDto {
+  id: string;
+  title: string;
+  category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  description?: string;
+  priceDollar?: number;
+  link?: string;
+  publishDate: string;
+  starRating?: number;
+  ownerContact?: {
+    email?: string;
+    phone?: string;
+    other?: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
 }

@@ -22,10 +22,10 @@ export async function getSolutionsHandler(
     reply: FastifyReply,
 ) {
     try {
-        const solution = await getSolutions(request.query);
-        reply.code(200).send(solution);
+        const solutions = await getSolutions(request.query);
+        reply.code(200).send(solutions);
     } catch (error) {
-        reply.code(404).send({ error: error.message });
+        reply.code(500).send({ error: error.message });
     }
 }
 
@@ -33,14 +33,18 @@ export async function getSolutionsHandler(
  * Handles solution retrieval requests
  */
 export async function getSolutionByIdHandler(
-    request: FastifyRequest<{ Params: { _id: string } }>,
+    request: FastifyRequest<{ Params: { id: string } }>,
     reply: FastifyReply,
 ) {
     try {
-        const solution = await getSolutionById(request.params._id);
+        const solution = await getSolutionById(request.params.id);
+        if (!solution) {
+            reply.code(404).send({ error: 'Solução não encontrada' });
+            return;
+        }
         reply.code(200).send(solution);
     } catch (error) {
-        reply.code(404).send({ error: error.message });
+        reply.code(500).send({ error: error.message });
     }
 }
 
@@ -63,13 +67,17 @@ export async function createSolutionHandler(
  * Handles solution deletion requests
  */
 export async function deleteSolutionHandler(
-    request: FastifyRequest<{ Params: { _id: string } }>,
+    request: FastifyRequest<{ Params: { id: string } }>,
     reply: FastifyReply,
 ) {
     try {
-        await deleteSolution(request.params._id);
+        await deleteSolution(request.params.id);
         reply.code(204).send();
     } catch (error) {
-        reply.code(400).send({ error: error.message });
+        if (error.message.includes('não encontrada')) {
+            reply.code(404).send({ error: error.message });
+        } else {
+            reply.code(500).send({ error: error.message });
+        }
     }
 }

@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import { errorHandler } from 'utils/errorHandler';
 import mongoosePlugin from 'plugins/mongoose';
 import solutionRoutes from 'routes/solution';
+import { rateLimiter } from 'utils/rateLimiter';
 /**
  * Creates and configures the main Fastify application instance
  *
@@ -64,14 +65,9 @@ await app.register(cors, {
   credentials: true,
 });
 
+// Apply rate limiting globally
+app.addHook('preHandler', rateLimiter);
 
-app.listen({ port: 4023 }, (err, address) => {
-  if (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
-  app.log.info(`Server listening at ${address}`);
-});
 
 /**
  * Route registration block

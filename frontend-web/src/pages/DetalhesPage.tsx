@@ -3,12 +3,31 @@ import { useParams } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
 import { motion } from 'framer-motion';
 import { getSolution, deleteSolution } from '../api/solution';
-import { SolutionDetailsProps } from '../types/solution';
+
+// Interface para os dados que vêm do backend
+interface SolutionFromBackend {
+  id: string;
+  title: string;
+  category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  description?: string; // Backend retorna 'description' ao invés de 'details'
+  priceDollar?: number;
+  link?: string;
+  publishDate: string;
+  starRating?: number;
+  ownerContact?: {
+    email?: string;
+    phone?: string;
+    other?: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 export const SolutionDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [solution, setSolution] = useState<SolutionDetailsProps | null>(null);
+  const [solution, setSolution] = useState<SolutionFromBackend | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) {
@@ -16,11 +35,13 @@ export const SolutionDetailsPage: React.FC = () => {
     }
     const fetchSolution = async () => {
       setLoading(true);
+      setError(null);
       try {
         const data = await getSolution(id);
         setSolution(data);
       } catch (error) {
         console.error('Erro ao buscar detalhes da solução:', error);
+        setError('Erro ao carregar os detalhes da solução. Tente novamente.');
       } finally {
         setLoading(false);
       }
@@ -35,8 +56,11 @@ export const SolutionDetailsPage: React.FC = () => {
     }
     try {
       await deleteSolution(id);
+      // Redirecionar para a página principal após deletar
+      window.location.href = '/';
     } catch (error) {
       console.error('Erro ao excluir solução:', error);
+      setError('Erro ao excluir a solução. Tente novamente.');
     }
   };
 
@@ -52,6 +76,14 @@ export const SolutionDetailsPage: React.FC = () => {
     return (
       <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant="body1" align="center">Carregando detalhes da solução...</Typography>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Typography variant="body1" align="center" color="error">{error}</Typography>
       </Container>
     );
   }
@@ -88,9 +120,9 @@ export const SolutionDetailsPage: React.FC = () => {
               <Typography variant="body1" gutterBottom>
                 <strong>Categoria:</strong> {solution.category}
               </Typography>
-              {solution.details && (
+              {solution.description && (
                 <Typography variant="body1" gutterBottom>
-                  <strong>Detalhes:</strong> {solution.details}
+                  <strong>Descrição:</strong> {solution.description}
                 </Typography>
               )}
               {solution.priceDollar !== undefined && (
@@ -133,8 +165,13 @@ export const SolutionDetailsPage: React.FC = () => {
                   )}
                 </>
               )}
+              {solution.createdAt && (
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                  <strong>Criado em:</strong> {new Date(solution.createdAt).toLocaleDateString()}
+                </Typography>
+              )}
             </CardContent>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

@@ -15,6 +15,7 @@ import {
   getSolutionByIdSchema,
   deleteSolutionSchema,
 } from './schema';
+import { validateObjectId } from 'utils/validation';
 
 /**
  * Configures solution routes for the Fastify instance
@@ -34,7 +35,13 @@ export default async function solutionRoutes(fastify: FastifyInstance) {
 
     fastify.get('/', { schema: getSolutionsSchema }, getSolutionsHandler);
     
-    fastify.get('/:id', { schema: getSolutionByIdSchema }, getSolutionByIdHandler);
+    fastify.get('/:id', { 
+        schema: getSolutionByIdSchema,
+        preHandler: validateObjectId
+    }, getSolutionByIdHandler);
 
-    fastify.delete('/:id', { schema: deleteSolutionSchema }, deleteSolutionHandler);
+    fastify.delete('/:id', { 
+        schema: deleteSolutionSchema,
+        preHandler: validateObjectId
+    }, deleteSolutionHandler);
 }
