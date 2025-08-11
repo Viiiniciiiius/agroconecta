@@ -35,7 +35,11 @@ async function mongoosePlugin(fastify: FastifyInstance) {
     };
 
     // Connect with better error handling
-    await mongoose.connect(process.env.MONGO_HOST, mongooseOptions);
+    await mongoose.connect(process.env.MONGO_HOST, {
+      ...mongooseOptions,
+      dbName: process.env.MONGO_DBNAME // 🔹 Força o banco AgroConecta
+    });
+    
 
     // Test the connection
     await mongoose.connection.db.admin().ping();
