@@ -2,6 +2,7 @@ export interface SolutionCardProps {
   id: string;
   title: string;
   category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  subcategory?: string;
   priceDollar?: number;
 }
 
@@ -9,6 +10,7 @@ export interface SolutionDetailsProps {
     id: string;
     title: string;
     category: 'product' | 'service' | 'scientific_article' | 'machinery';
+    subcategory?: string;
     details?: string;
     priceDollar?: number;
     link?: string;
@@ -24,6 +26,7 @@ export interface SolutionDetailsProps {
 export interface CreateSolutionForm {
     title: string
     category: 'product' | 'service' | 'scientific_article' | 'machinery'
+    subcategory?: string
     description?: string
     priceDollar?: number
     link?: string

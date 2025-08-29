@@ -7,11 +7,13 @@ import { motion } from 'framer-motion';
 import { createSolution } from "../api/solution";
 import { CreateSolutionForm } from '../types/solution';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { CATEGORIES_CONFIG, CategoryType } from '../config/categories';
 
 export const CreateSolutionPage: React.FC = () => {
   const [formData, setFormData] = useState<CreateSolutionForm>({
     title: '',
     category: 'product',
+    subcategory: '',
     description: '',
     priceDollar: undefined,
     link: '',
@@ -106,7 +108,7 @@ export const CreateSolutionPage: React.FC = () => {
             background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))'
           }}
         >
-          <Typography variant="h4" fontWeight={600} color='#880022' gutterBottom>
+          <Typography variant="h4" fontWeight={600} color='#880022' gutterBottom sx={{ textAlign: 'center' }}>
             Adicione uma nova solução ao banco de dados
           </Typography>
           <Box component='form' onSubmit={handleSubmit}>
@@ -124,17 +126,41 @@ export const CreateSolutionPage: React.FC = () => {
               <InputLabel id="category-label">Categoria</InputLabel>
               <Select
                 labelId="category-label"
-                label="Category"
+                label="Categoria"
                 name="category"
                 value={formData.category}
                 onChange={handleSelectChange}
               >
-                <MenuItem value="product">Produto</MenuItem>
-                <MenuItem value="service">Serviço</MenuItem>
-                <MenuItem value="scientific_article">Artigo científico</MenuItem>
-                <MenuItem value="machinery">Maquinário</MenuItem>
+                {Object.entries(CATEGORIES_CONFIG).map(([key, config]) => (
+                  <MenuItem key={key} value={key}>
+                    {config.label}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
+
+            {/* Subcategoria - só aparece se uma categoria for selecionada */}
+            {formData.category && (
+              <FormControl fullWidth margin="normal">
+                <InputLabel id="subcategory-label">Subcategoria (Opcional)</InputLabel>
+                <Select
+                  labelId="subcategory-label"
+                  label="Subcategoria (Opcional)"
+                  name="subcategory"
+                  value={formData.subcategory}
+                  onChange={handleSelectChange}
+                >
+                  <MenuItem value="">
+                    <em>Selecione uma subcategoria</em>
+                  </MenuItem>
+                  {Object.entries(CATEGORIES_CONFIG[formData.category as CategoryType]?.subcategories || {}).map(([key, config]) => (
+                    <MenuItem key={key} value={key}>
+                      {config.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
 
             <TextField
               label="Detalhes"

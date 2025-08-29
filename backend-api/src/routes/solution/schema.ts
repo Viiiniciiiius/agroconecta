@@ -17,6 +17,7 @@ export const createSolutionSchema = {
         type: 'string', 
         enum: ['product', 'service', 'scientific_article', 'machinery'] 
       },
+      subcategory: { type: 'string' },
       priceDollar: { 
         type: 'number',
         minimum: 0
@@ -54,6 +55,7 @@ export const createSolutionSchema = {
         title: { type: 'string' },
         description: { type: 'string' },
         category: { type: 'string' },
+        subcategory: { type: 'string' },
         details: { type: 'string' },
         priceDollar: { type: 'number' },
         link: { type: 'string' },
@@ -79,6 +81,7 @@ export const getSolutionsSchema = {
     required: [] as string[],
     properties: {
       category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery'] },
+      subcategory: { type: 'string' },
     },
   },
   response: {
@@ -91,6 +94,7 @@ export const getSolutionsSchema = {
           title: { type: 'string' },
           description: { type: 'string' },
           category: { type: 'string' },
+          subcategory: { type: 'string' },
           details: { type: 'string' },
           priceDollar: { type: 'number' },
           link: { type: 'string' },
@@ -127,6 +131,7 @@ export const getSolutionByIdSchema = {
         title: { type: 'string' },
         description: { type: 'string' },
         category: { type: 'string' },
+        subcategory: { type: 'string' },
         details: { type: 'string' },
         priceDollar: { type: 'number' },
         link: { type: 'string' },

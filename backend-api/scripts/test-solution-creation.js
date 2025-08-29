@@ -3,17 +3,14 @@ const mongoose = require('mongoose');
 // Dados de teste
 const testSolution = {
   title: "Teste de Sistema de Irrigação",
-  category: "product",
-  description: "Este é um teste para verificar se os detalhes estão sendo salvos corretamente no banco de dados.",
+  category: "machinery",
+  subcategory: "irrigation", // ← NOVA SUBCATEGORIA
+  description: "Este é um teste para verificar se os detalhes e subcategorias estão sendo salvos corretamente no banco de dados.",
   priceDollar: 1500,
   link: "https://example.com/test",
   publishDate: new Date().toISOString(),
-  starRating: 4.5,
-  ownerContact: {
-    email: "teste@example.com",
-    phone: "(11) 99999-9999",
-    other: "WhatsApp: (11) 99999-9999"
-  }
+  starRating: 4.5
+  // ← SEM ownerContact - deve aparecer "via plataforma"
 };
 
 async function testSolutionCreation() {
@@ -39,11 +36,12 @@ async function testSolutionCreation() {
     console.log('\n🔍 Verificações:');
     console.log('✅ Title:', savedSolution.title === testSolution.title);
     console.log('✅ Category:', savedSolution.category === testSolution.category);
+    console.log('✅ Subcategory:', savedSolution.subcategory === testSolution.subcategory); // ← NOVA VERIFICAÇÃO
     console.log('✅ Details:', savedSolution.details === testSolution.description);
     console.log('✅ Price:', savedSolution.priceDollar === testSolution.priceDollar);
     console.log('✅ Link:', savedSolution.link === testSolution.link);
     console.log('✅ Star Rating:', savedSolution.starRating === testSolution.starRating);
-    console.log('✅ Owner Contact:', JSON.stringify(savedSolution.ownerContact) === JSON.stringify(testSolution.ownerContact));
+    console.log('✅ Owner Contact:', !savedSolution.ownerContact ? '✅ SEM CONTATO (via plataforma)' : '❌ TEM CONTATO');
 
     // Limpar dados de teste
     await solutionsCollection.deleteOne({ _id: result.insertedId });

@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
 import { motion } from 'framer-motion';
 import { getSolution, deleteSolution } from '../api/solution';
+import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../config/categories';
+import { ADMIN_CONFIG } from '../config/admin';
 
 // Interface para os dados que vêm do backend
 interface SolutionFromBackend {
   id: string;
   title: string;
   category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  subcategory?: string;
   description?: string; // Backend retorna 'description' ao invés de 'details'
   priceDollar?: number;
   link?: string;
@@ -116,10 +119,15 @@ export const SolutionDetailsPage: React.FC = () => {
             {solution.title}
           </Typography>
           <Card sx={{ mt: 2 }}>
-            <CardContent>
+            <CardContent sx={{ textAlign: 'left' }}>
               <Typography variant="body1" gutterBottom>
-                <strong>Categoria:</strong> {solution.category}
+                <strong>Categoria:</strong> {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
               </Typography>
+              {solution.subcategory && (
+                <Typography variant="body1" gutterBottom>
+                  <strong>Subcategoria:</strong> {getSubcategoryLabel(solution.category as CategoryType, solution.subcategory)}
+                </Typography>
+              )}
               {solution.description && (
                 <Typography variant="body1" gutterBottom>
                   <strong>Descrição:</strong> {solution.description}
@@ -143,27 +151,38 @@ export const SolutionDetailsPage: React.FC = () => {
                   <strong>Classificação:</strong> {solution.starRating} / 5
                 </Typography>
               )}
+              <Typography variant="body1" gutterBottom>
+                <strong>Contato do Proprietário:</strong>
+              </Typography>
               {solution.ownerContact && (
-                <>
-                  <Typography variant="body1" gutterBottom>
-                    <strong>Contato do Proprietário:</strong>
+                solution.ownerContact.email || solution.ownerContact.phone || solution.ownerContact.other ? (
+                  <>
+                    {solution.ownerContact.email && (
+                      <Typography variant="body2">
+                        <strong>Email:</strong> {solution.ownerContact.email}
+                      </Typography>
+                    )}
+                    {solution.ownerContact.phone && (
+                      <Typography variant="body2">
+                        <strong>Telefone:</strong> {solution.ownerContact.phone}
+                      </Typography>
+                    )}
+                    {solution.ownerContact.other && (
+                      <Typography variant="body2">
+                        <strong>Outros:</strong> {solution.ownerContact.other}
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <Typography variant="body2" color="text.secondary">
+                    via plataforma
                   </Typography>
-                  {solution.ownerContact.email && (
-                    <Typography variant="body2">
-                      <strong>Email:</strong> {solution.ownerContact.email}
-                    </Typography>
-                  )}
-                  {solution.ownerContact.phone && (
-                    <Typography variant="body2">
-                      <strong>Telefone:</strong> {solution.ownerContact.phone}
-                    </Typography>
-                  )}
-                  {solution.ownerContact.other && (
-                    <Typography variant="body2">
-                      <strong>Outros:</strong> {solution.ownerContact.other}
-                    </Typography>
-                  )}
-                </>
+                )
+              )}
+              {!solution.ownerContact && (
+                <Typography variant="body2" color="text.secondary">
+                  via plataforma
+                </Typography>
               )}
               {solution.createdAt && (
                 <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
@@ -171,23 +190,26 @@ export const SolutionDetailsPage: React.FC = () => {
                 </Typography>
               )}
             </CardContent>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  backgroundColor: '#880022',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '10px 20px',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                }}
-                onClick={handleDelete}
-              >
-                Excluir Solução
-              </motion.button>
-            </Box>
+            {/* Botão "Excluir Solução" só aparece se ADMIN_MODE for true */}
+            {ADMIN_CONFIG.ADMIN_MODE && (
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    backgroundColor: '#880022',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '10px 20px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={handleDelete}
+                >
+                  Excluir Solução
+                </motion.button>
+              </Box>
+            )}
           </Card>
         </Box>
       </motion.div>

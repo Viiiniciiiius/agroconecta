@@ -3,6 +3,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 export interface ISolution extends Document {
   title: string;
   category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  subcategory?: string; // ← NOVO CAMPO para subcategorias
   details?: string;
   priceDollar?: number;
   link?: string;
@@ -20,6 +21,7 @@ export interface ISolution extends Document {
 const SolutionSchema: Schema = new Schema({
   title: { type: String, required: true },
   category: { type: String, enum: ['product', 'service', 'scientific_article', 'machinery'], required: true },
+  subcategory: { type: String }, // ← NOVO CAMPO
   details: { type: String },
   priceDollar: { type: Number },
   link: { type: String },

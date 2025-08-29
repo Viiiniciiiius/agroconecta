@@ -9,6 +9,7 @@ export interface ISolution {
 export interface CreateSolutionRequest {
   title: string;
   category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  subcategory?: string; // ← NOVO CAMPO para subcategorias
   description?: string;
   priceDollar?: number;
   link?: string;
@@ -23,12 +24,14 @@ export interface CreateSolutionRequest {
 
 export interface GetSolutionsRequest {
     category?: string;
+    subcategory?: string; // ← NOVO CAMPO para filtrar por subcategoria
 }
 
 export interface SolutionApiDto {
   id: string;
   title: string;
   category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  subcategory?: string; // ← NOVO CAMPO para subcategorias
   description?: string;
   priceDollar?: number;
   link?: string;

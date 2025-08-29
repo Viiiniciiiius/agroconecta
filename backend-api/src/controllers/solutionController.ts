@@ -16,6 +16,7 @@ export const createSolution = async (solutionData: CreateSolutionRequest): Promi
     const dataToSave = {
       ...solutionData,
       details: solutionData.description, // Mapear description para details
+      subcategory: solutionData.subcategory, // ← NOVO MAPEAMENTO para subcategoria
     };
     delete (dataToSave as Record<string, unknown>).description; // Remover description do objeto
     
@@ -53,18 +54,26 @@ export const createSolution = async (solutionData: CreateSolutionRequest): Promi
 };
 
 /**
- * Retrieves all solutions, optionally filtered by category.
- * @param {GetSolutionsRequest} query - The query parameters, potentially including category.
+ * Retrieves all solutions, optionally filtered by category and subcategory.
+ * @param {GetSolutionsRequest} query - The query parameters, potentially including category and subcategory.
  * @returns {Promise<SolutionApiDto[]>} The list of solutions.
  */
 export const getSolutions = async (query: GetSolutionsRequest): Promise<SolutionApiDto[]> => {
   try {
-    // Extrai a string category do objeto query recebido
+    // Extrai as strings category e subcategory do objeto query recebido
     const categoryString = query && query.category ? query.category : undefined;
+    const subcategoryString = query && query.subcategory ? query.subcategory : undefined;
 
-    // Cria o filtro Mongoose: { category: 'alguma_categoria' } se categoryString existir e não for vazio,
-    // ou {} para buscar todas as soluções se categoryString for undefined ou vazio.
-    const filter = categoryString && categoryString.trim() !== '' ? { category: categoryString } : {};
+    // Cria o filtro Mongoose com suporte a categoria e subcategoria
+    const filter: any = {};
+    
+    if (categoryString && categoryString.trim() !== '') {
+      filter.category = categoryString;
+    }
+    
+    if (subcategoryString && subcategoryString.trim() !== '') {
+      filter.subcategory = subcategoryString;
+    }
 
     const solutions = await SolutionModel.find(filter);
 
@@ -74,6 +83,7 @@ export const getSolutions = async (query: GetSolutionsRequest): Promise<Solution
         id: solutionObject._id.toString(),
         title: solution.title,
         category: solution.category,
+        subcategory: solution.subcategory, // ← NOVO CAMPO para subcategoria
         description: solution.details, // Mapear 'details' do DB para 'description' para a API
         priceDollar: solution.priceDollar,
         link: solution.link,
@@ -106,6 +116,7 @@ export const getSolutionById = async (_id: string): Promise<SolutionApiDto | nul
       id: solutionObject._id.toString(),
       title: solution.title,
       category: solution.category,
+      subcategory: solution.subcategory, // ← NOVO CAMPO para subcategoria
       description: solution.details, // Mapear 'details' do DB para 'description' para a API
       priceDollar: solution.priceDollar,
       link: solution.link,

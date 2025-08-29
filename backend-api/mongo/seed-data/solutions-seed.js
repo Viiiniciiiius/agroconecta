@@ -4,7 +4,8 @@ const solutions = [
   {
     _id: new mongoose.Types.ObjectId(),
     title: "Sistema de Irrigação Inteligente",
-    category: "product",
+    category: "machinery",
+    subcategory: "irrigation", // ← NOVA SUBCATEGORIA
     details: "Sistema automatizado de irrigação que utiliza sensores de umidade e temperatura para otimizar o uso de água na agricultura.",
     priceDollar: 2500,
     link: "https://example.com/irrigation-system",
@@ -20,6 +21,7 @@ const solutions = [
     _id: new mongoose.Types.ObjectId(),
     title: "Consultoria em Agricultura Sustentável",
     category: "service",
+    subcategory: "consulting", // ← NOVA SUBCATEGORIA
     details: "Serviço de consultoria especializada em técnicas de agricultura sustentável e orgânica.",
     priceDollar: 150,
     link: "https://example.com/consulting",
@@ -34,6 +36,7 @@ const solutions = [
     _id: new mongoose.Types.ObjectId(),
     title: "Estudo sobre Eficiência de Fertilizantes",
     category: "scientific_article",
+    subcategory: "research", // ← NOVA SUBCATEGORIA
     details: "Pesquisa sobre a eficiência de diferentes tipos de fertilizantes em culturas de milho e soja.",
     link: "https://example.com/research",
     publishDate: new Date("2024-01-10"),
@@ -46,6 +49,7 @@ const solutions = [
     _id: new mongoose.Types.ObjectId(),
     title: "Trator com GPS Integrado",
     category: "machinery",
+    subcategory: "tractors", // ← NOVA SUBCATEGORIA
     details: "Trator equipado com sistema GPS para navegação precisa e otimização de rotas no campo.",
     priceDollar: 85000,
     link: "https://example.com/tractor",
@@ -55,6 +59,33 @@ const solutions = [
       email: "vendas@maquinaria.com",
       phone: "(31) 77777-6666"
     }
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    title: "Software de Gestão Agrícola",
+    category: "product",
+    subcategory: "software", // ← NOVA SUBCATEGORIA
+    details: "Software completo para gestão de fazendas, incluindo controle de estoque, planejamento de plantio e análise de produtividade.",
+    priceDollar: 299,
+    link: "https://example.com/agro-software",
+    publishDate: new Date("2024-01-30"),
+    starRating: 4.6,
+    ownerContact: {
+      email: "suporte@agrosoft.com",
+      phone: "(41) 66666-5555"
+    }
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    title: "Fertilizante Orgânico Premium",
+    category: "product",
+    subcategory: "inputs", // ← NOVA SUBCATEGORIA
+    details: "Fertilizante orgânico de alta qualidade, produzido com ingredientes naturais e certificado para agricultura orgânica.",
+    priceDollar: 45,
+    link: "https://example.com/organic-fertilizer",
+    publishDate: new Date("2024-02-01"),
+    starRating: 4.9
+    // ← SEM ownerContact - deve aparecer "via plataforma"
   }
 ];
 

@@ -2,6 +2,7 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import '../App.css';
+import { ADMIN_CONFIG } from '../config/admin';
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const DashboardPage: React.FC = () => {
             Banco de Soluções do AgroConecta
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-            Encontre e compartilhe soluções inovadoras para o agronegócio.
+            Encontre soluções inovadoras para o agronegócio.
           </Typography>
 
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 12 }}>
@@ -48,21 +49,24 @@ export const DashboardPage: React.FC = () => {
               Ver Soluções
             </Button>
 
-            <Button
-              sx={{
-                bgcolor: '#880022', 
-                color: 'white', 
-                px: 3, py: 1.2,
-                borderRadius: 3,
-                fontSize: '1rem',
-                fontWeight: 600,
-                transition: '0.3s',
-                '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
-              }} 
-              onClick={() => navigate('/storage-solution')}
-            >
-              Adicionar Solução
-            </Button>
+            {/* Botão "Adicionar Solução" só aparece se ADMIN_MODE for true */}
+            {ADMIN_CONFIG.ADMIN_MODE && (
+              <Button
+                sx={{
+                  bgcolor: '#880022', 
+                  color: 'white', 
+                  px: 3, py: 1.2,
+                  borderRadius: 3,
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  transition: '0.3s',
+                  '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
+                }} 
+                onClick={() => navigate('/storage-solution')}
+              >
+                Adicionar Solução
+              </Button>
+            )}
           </Box>
         </Box>
       </motion.div>
