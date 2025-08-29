@@ -8,12 +8,13 @@ export interface ISolution {
 
 export interface CreateSolutionRequest {
   title: string;
-  category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  category: 'product' | 'service' | 'scientific_article' | 'machinery' | 'irrigation';
   subcategory?: string; // ← NOVO CAMPO para subcategorias
   description?: string;
   priceDollar?: number;
   link?: string;
   publishDate: string;
+  dataColeta?: string;
   starRating?: number;
   ownerContact?: {
     email?: string;
@@ -30,12 +31,13 @@ export interface GetSolutionsRequest {
 export interface SolutionApiDto {
   id: string;
   title: string;
-  category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  category: 'product' | 'service' | 'scientific_article' | 'machinery' | 'irrigation';
   subcategory?: string; // ← NOVO CAMPO para subcategorias
   description?: string;
   priceDollar?: number;
   link?: string;
   publishDate: string;
+  dataColeta?: string;
   starRating?: number;
   ownerContact?: {
     email?: string;

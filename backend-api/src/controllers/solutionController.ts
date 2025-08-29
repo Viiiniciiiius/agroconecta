@@ -64,8 +64,8 @@ export const getSolutions = async (query: GetSolutionsRequest): Promise<Solution
     const categoryString = query && query.category ? query.category : undefined;
     const subcategoryString = query && query.subcategory ? query.subcategory : undefined;
 
-    // Cria o filtro Mongoose com suporte a categoria e subcategoria
-    const filter: any = {};
+  // Cria o filtro Mongoose com suporte a categoria e subcategoria
+  const filter: Partial<Record<'category' | 'subcategory', string>> = {};
     
     if (categoryString && categoryString.trim() !== '') {
       filter.category = categoryString;
@@ -88,6 +88,7 @@ export const getSolutions = async (query: GetSolutionsRequest): Promise<Solution
         priceDollar: solution.priceDollar,
         link: solution.link,
         publishDate: solution.publishDate.toISOString(),
+        dataColeta: solution.dataColeta,
         starRating: solution.starRating,
         ownerContact: solution.ownerContact,
         createdAt: solution.createdAt ? solution.createdAt.toISOString() : undefined,
@@ -121,6 +122,7 @@ export const getSolutionById = async (_id: string): Promise<SolutionApiDto | nul
       priceDollar: solution.priceDollar,
       link: solution.link,
       publishDate: solution.publishDate.toISOString(),
+      dataColeta: solution.dataColeta,
       starRating: solution.starRating,
       ownerContact: solution.ownerContact,
       createdAt: solution.createdAt ? solution.createdAt.toISOString() : undefined,

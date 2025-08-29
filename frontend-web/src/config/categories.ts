@@ -36,8 +36,22 @@ export const CATEGORIES_CONFIG = {
       tractors: { value: 'tractors', label: 'Tratores' },
       harvesters: { value: 'harvesters', label: 'Colheitadeiras' },
       implements: { value: 'implements', label: 'Implementos' },
-      specialized: { value: 'specialized', label: 'Especializado' },
-      irrigation: { value: 'irrigation', label: 'Irrigação' }
+      aerator: { value: 'aerator', label: 'Aerador' },
+      specialized: { value: 'specialized', label: 'Especializado' }
+    }
+  },
+  irrigation: {
+    label: 'Irrigação',
+    subcategories: {
+      aspersores: { value: 'aspersores', label: 'Aspersores' },
+      medidores: { value: 'medidores', label: 'medidores' },
+      temporizadores: { value: 'temporizadores', label: 'temporizadores' }
+    }
+  },
+  patents: {
+    label: 'Patente',
+    subcategories: {
+      
     }
   }
 };

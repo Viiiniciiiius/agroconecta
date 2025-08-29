@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getSolutions } from '../api/solution';
 import { SolutionCardProps } from '../types/solution';
-import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../config/categories';
+import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel, getSubcategories } from '../config/categories';
 //import { solutionsSeed } from '../utils/solutionsSeed';
 
 export const ViewSolutionsPage: React.FC = () => {
@@ -15,24 +15,26 @@ export const ViewSolutionsPage: React.FC = () => {
   const [solutions, setSolutions] = useState<SolutionCardProps[]>(() => []);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const itemsPerPage = 6;
 
   const fetchSolutions = React.useCallback(async () => {
     setLoading(true);
     try {
+      // Busca todas as soluções e filtra por categoria e subcategoria se necessário
       const data = await getSolutions(selectedCategory);
-      /*solutionsSeed.filter(solution => 
-        selectedCategory ? solution.category === selectedCategory : true
-      );*/
-
-      setSolutions(data);
+      let filtered = data;
+      if (selectedSubcategory && selectedCategory) {
+        filtered = data.filter((s: SolutionCardProps) => s.subcategory === selectedSubcategory);
+      }
+      setSolutions(filtered);
     } catch (error) {
       console.error('Erro ao buscar soluções:', error);
     } finally {
       setLoading(false);
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedSubcategory]);
 
   useEffect(() => {
     fetchSolutions();
@@ -40,6 +42,12 @@ export const ViewSolutionsPage: React.FC = () => {
 
   const handleCategoryChange = (e: SelectChangeEvent<string>) => {
     setSelectedCategory(e.target.value as string);
+    setSelectedSubcategory(''); // Limpa subcategoria ao trocar categoria
+    setPage(1);
+  };
+
+  const handleSubcategoryChange = (e: SelectChangeEvent<string>) => {
+    setSelectedSubcategory(e.target.value as string);
     setPage(1);
   };
 
@@ -61,7 +69,7 @@ export const ViewSolutionsPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ minHeight: '100vh', mb: 4 }}>
+  <Container maxWidth={false} sx={{ minHeight: '100vh', mb: 4, px: { xs: 1, sm: 2, md: 4 } }}>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -74,6 +82,8 @@ export const ViewSolutionsPage: React.FC = () => {
             borderRadius: 4,
             boxShadow: 4,
             width: '100%',
+            maxWidth: 700,
+            mx: 'auto',
             background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))',
             mb: 4,
             textAlign: 'center',
@@ -136,6 +146,48 @@ export const ViewSolutionsPage: React.FC = () => {
                 ))}
             </Select>
           </FormControl>
+
+          {/* Filtro de subcategoria, aparece só se categoria selecionada */}
+          {selectedCategory && (
+            <FormControl
+              fullWidth
+              sx={{
+                mt: 2,
+                maxWidth: 400,
+                mx: 'auto',
+              }}
+            >
+              <InputLabel id="filter-subcategory-label">Filtrar por subcategoria</InputLabel>
+              <Select
+                labelId="filter-subcategory-label"
+                label="Filtrar por subcategoria"
+                value={selectedSubcategory}
+                onChange={handleSubcategoryChange}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    '&:hover fieldset': {
+                      borderColor: '#008388',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#008388',
+                    },
+                  },
+                }}
+              >
+                <MenuItem value="">
+                  <em>Todas as subcategorias</em>
+                </MenuItem>
+                {Object.entries(getSubcategories(selectedCategory as CategoryType)).map(([key, sub]) => {
+                  const subObj = sub as { value: string; label: string };
+                  return (
+                    <MenuItem key={key} value={key}>
+                      {subObj.label}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          )}
         </Box>
       </motion.div>
 
@@ -151,6 +203,7 @@ export const ViewSolutionsPage: React.FC = () => {
             borderRadius: 4,
             boxShadow: 4,
             width: '100%',
+            maxWidth: '100%',
             background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))',
             textAlign: 'center',
             border: '1px solid rgba(136, 0, 34, 0.2)',
@@ -201,9 +254,9 @@ export const ViewSolutionsPage: React.FC = () => {
             </Typography>
           </Box>
         ) : (
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justifyContent="center" sx={{ width: '100%', maxWidth: '100%', mx: 0 }}>
             {currentSolutions.map(solution => (
-              <Grid item xs={12} sm={6} md={4} key={solution.id}>
+              <Grid item xs={12} sm={6} md={4} key={solution.id} sx={{ maxWidth: 370, flex: '1 1 320px' }}>
                 <Card
                   sx={{
                     cursor: 'pointer',
@@ -219,72 +272,76 @@ export const ViewSolutionsPage: React.FC = () => {
                   }}
                   onClick={() => handleCardClick(solution.id)}
                 >
-                  <CardContent sx={{ 
-                    flexGrow: 1, 
-                    display: 'flex', 
+                  <CardContent sx={{
+                    flexGrow: 1,
+                    display: 'flex',
                     flexDirection: 'column',
                     p: 3,
-                    textAlign: 'left'
+                    justifyContent: 'space-between',
                   }}>
-                    <Typography 
-                      variant="h6" 
-                      component="div" 
-                      sx={{ 
-                        fontWeight: 600,
-                        color: '#880022',
-                        mb: 2,
-                        lineHeight: 1.3,
-                        textAlign: 'left'
-                      }}
-                    >
-                      {solution.title}
-                    </Typography>
-                    
-                    <Box sx={{ mb: 2, textAlign: 'left' }}>
-                      <Typography 
-                        variant="body2" 
-                        sx={{ 
-                          color: 'text.secondary',
-                          backgroundColor: 'rgba(136, 0, 34, 0.1)',
-                          px: 2,
-                          py: 0.5,
-                          borderRadius: 2,
-                          display: 'inline-block',
-                          mb: 1,
-                          textAlign: 'center'
+                    <Box>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{
+                          fontWeight: 600,
+                          color: '#880022',
+                          mb: 2,
+                          lineHeight: 1.3,
+                          textAlign: 'left',
                         }}
                       >
-                        {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
+                        {solution.title}
                       </Typography>
-                      
-                      {solution.subcategory && (
-                        <Typography 
-                          variant="body2" 
-                          sx={{ 
+                      <Box sx={{
+                        display: 'flex',
+                        gap: 1,
+                        mb: 2,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                      }}>
+                        <Typography
+                          variant="body2"
+                          sx={{
                             color: 'text.secondary',
-                            backgroundColor: 'rgba(0, 131, 136, 0.1)',
+                            backgroundColor: 'rgba(136, 0, 34, 0.1)',
                             px: 2,
                             py: 0.5,
                             borderRadius: 2,
                             display: 'inline-block',
-                            ml: 1,
-                            textAlign: 'center'
+                            textAlign: 'center',
                           }}
                         >
-                          {getSubcategoryLabel(solution.category as CategoryType, solution.subcategory)}
+                          {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
                         </Typography>
-                      )}
+                        {solution.subcategory && (
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              color: 'text.secondary',
+                              backgroundColor: 'rgba(0, 131, 136, 0.1)',
+                              px: 2,
+                              py: 0.5,
+                              borderRadius: 2,
+                              display: 'inline-block',
+                              textAlign: 'center',
+                            }}
+                          >
+                            {getSubcategoryLabel(solution.category as CategoryType, solution.subcategory)}
+                          </Typography>
+                        )}
+                      </Box>
                     </Box>
-                    
                     {solution.priceDollar !== undefined && (
-                      <Typography 
-                        variant="body1" 
-                        sx={{ 
+                      <Typography
+                        variant="body1"
+                        sx={{
                           color: '#880022',
                           fontWeight: 600,
                           fontSize: '1.1rem',
-                          mt: 'auto',
-                          textAlign: 'right'
+                          mt: 2,
+                          textAlign: 'right',
                         }}
                       >
                         ${solution.priceDollar}

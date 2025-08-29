@@ -15,7 +15,7 @@ export const createSolutionSchema = {
       },
       category: { 
         type: 'string', 
-        enum: ['product', 'service', 'scientific_article', 'machinery'] 
+        enum: ['product', 'service', 'scientific_article', 'machinery', 'irrigation'] 
       },
       subcategory: { type: 'string' },
       priceDollar: { 
@@ -35,6 +35,7 @@ export const createSolutionSchema = {
         minimum: 0,
         maximum: 5
       },
+      dataColeta: { type: 'string' },
       ownerContact: {
         type: 'object',
         required: [] as string[],
@@ -59,7 +60,8 @@ export const createSolutionSchema = {
         details: { type: 'string' },
         priceDollar: { type: 'number' },
         link: { type: 'string' },
-        publishDate: { type: 'string' },
+  publishDate: { type: 'string' },
+  dataColeta: { type: 'string' },
         starRating: { type: 'number' },
         ownerContact: {
           type: 'object',
@@ -80,7 +82,7 @@ export const getSolutionsSchema = {
     type: 'object',
     required: [] as string[],
     properties: {
-      category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery'] },
+  category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery', 'irrigation'] },
       subcategory: { type: 'string' },
     },
   },
@@ -96,6 +98,7 @@ export const getSolutionsSchema = {
           category: { type: 'string' },
           subcategory: { type: 'string' },
           details: { type: 'string' },
+          dataColeta: { type: 'string' },
           priceDollar: { type: 'number' },
           link: { type: 'string' },
           publishDate: { type: 'string' },
@@ -132,7 +135,8 @@ export const getSolutionByIdSchema = {
         description: { type: 'string' },
         category: { type: 'string' },
         subcategory: { type: 'string' },
-        details: { type: 'string' },
+  details: { type: 'string' },
+  dataColeta: { type: 'string' },
         priceDollar: { type: 'number' },
         link: { type: 'string' },
         publishDate: { type: 'string' },

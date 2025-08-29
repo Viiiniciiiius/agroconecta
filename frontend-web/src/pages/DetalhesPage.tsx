@@ -16,6 +16,7 @@ interface SolutionFromBackend {
   priceDollar?: number;
   link?: string;
   publishDate: string;
+  dataColeta?: string;
   starRating?: number;
   ownerContact?: {
     email?: string;
@@ -146,6 +147,14 @@ export const SolutionDetailsPage: React.FC = () => {
               <Typography variant="body1" gutterBottom>
                 <strong>Data de Publicação:</strong> {new Date(solution.publishDate).toLocaleDateString()}
               </Typography>
+              {solution.dataColeta && (
+                <Typography variant="body1" gutterBottom>
+                  <strong>Data da Coleta:</strong> {(() => {
+                    const d = new Date(solution.dataColeta);
+                    return isNaN(d.getTime()) ? solution.dataColeta : d.toLocaleDateString();
+                  })()}
+                </Typography>
+              )}
               {solution.starRating !== undefined && (
                 <Typography variant="body1" gutterBottom>
                   <strong>Classificação:</strong> {solution.starRating} / 5

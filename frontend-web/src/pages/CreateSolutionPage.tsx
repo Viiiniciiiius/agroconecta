@@ -18,6 +18,7 @@ export const CreateSolutionPage: React.FC = () => {
     priceDollar: undefined,
     link: '',
     publishDate: new Date().toISOString(),
+    dataColeta: '',
     starRating: undefined,
     ownerContact: {
       email: '',
@@ -111,6 +112,7 @@ export const CreateSolutionPage: React.FC = () => {
           <Typography variant="h4" fontWeight={600} color='#880022' gutterBottom sx={{ textAlign: 'center' }}>
             Adicione uma nova solução ao banco de dados
           </Typography>
+
           <Box component='form' onSubmit={handleSubmit}>
             <TextField
               label="Título"
@@ -120,6 +122,16 @@ export const CreateSolutionPage: React.FC = () => {
               fullWidth
               required
               margin="normal"
+            />
+            <TextField
+              label="Data da Coleta"
+              name="dataColeta"
+              type="date"
+              value={formData.dataColeta || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              InputLabelProps={{ shrink: true }}
             />
 
             <FormControl fullWidth required margin="normal">
@@ -131,11 +143,14 @@ export const CreateSolutionPage: React.FC = () => {
                 value={formData.category}
                 onChange={handleSelectChange}
               >
-                {Object.entries(CATEGORIES_CONFIG).map(([key, config]) => (
-                  <MenuItem key={key} value={key}>
-                    {config.label}
-                  </MenuItem>
-                ))}
+                {Object.entries(CATEGORIES_CONFIG).map(([key, config]) => {
+                  const cat = config as { label: string };
+                  return (
+                    <MenuItem key={key} value={key}>
+                      {cat.label}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
 
@@ -153,11 +168,14 @@ export const CreateSolutionPage: React.FC = () => {
                   <MenuItem value="">
                     <em>Selecione uma subcategoria</em>
                   </MenuItem>
-                  {Object.entries(CATEGORIES_CONFIG[formData.category as CategoryType]?.subcategories || {}).map(([key, config]) => (
-                    <MenuItem key={key} value={key}>
-                      {config.label}
-                    </MenuItem>
-                  ))}
+                  {Object.entries(CATEGORIES_CONFIG[formData.category as CategoryType]?.subcategories || {}).map(([key, config]) => {
+                    const sub = config as { label: string };
+                    return (
+                      <MenuItem key={key} value={key}>
+                        {sub.label}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
             )}

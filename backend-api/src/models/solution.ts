@@ -2,7 +2,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export interface ISolution extends Document {
   title: string;
-  category: 'product' | 'service' | 'scientific_article' | 'machinery';
+  category: 'product' | 'service' | 'scientific_article' | 'machinery' | 'irrigation';
   subcategory?: string; // ← NOVO CAMPO para subcategorias
   details?: string;
   priceDollar?: number;
@@ -14,18 +14,20 @@ export interface ISolution extends Document {
     phone?: string;
     other?: string;
   };
+  dataColeta?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 const SolutionSchema: Schema = new Schema({
   title: { type: String, required: true },
-  category: { type: String, enum: ['product', 'service', 'scientific_article', 'machinery'], required: true },
+  category: { type: String, enum: ['product', 'service', 'scientific_article', 'machinery', 'irrigation'], required: true },
   subcategory: { type: String }, // ← NOVO CAMPO
   details: { type: String },
   priceDollar: { type: Number },
   link: { type: String },
   publishDate: { type: Date, default: Date.now },
+  dataColeta: { type: String },
   starRating: { type: Number, min: 0, max: 5 },
   ownerContact: {
     email: { type: String },
