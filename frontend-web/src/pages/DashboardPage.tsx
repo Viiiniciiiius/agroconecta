@@ -35,7 +35,7 @@ export const DashboardPage: React.FC = () => {
               component="img"
               src="agroconecta-icon.png"
               alt="Logo"
-              sx={{ width: 80, height: 80 }}
+              sx={{ height: 80 }}
             />
           </Box>
           <Typography variant="h4" fontWeight={600} color='#19CD94' gutterBottom>
