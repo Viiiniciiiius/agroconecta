@@ -44,8 +44,8 @@ export const CATEGORIES_CONFIG = {
     label: 'Irrigação',
     subcategories: {
       aspersores: { value: 'aspersores', label: 'Aspersores' },
-      medidores: { value: 'medidores', label: 'medidores' },
-      temporizadores: { value: 'temporizadores', label: 'temporizadores' }
+      medidores: { value: 'medidores', label: 'Medidores' },
+      temporizadores: { value: 'temporizadores', label: 'Temporizadores' }
     }
   },
   patents: {

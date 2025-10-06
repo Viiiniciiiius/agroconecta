@@ -84,19 +84,18 @@ export const ViewSolutionsPage: React.FC = () => {
             width: '100%',
             maxWidth: 700,
             mx: 'auto',
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))',
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
             mb: 4,
             textAlign: 'center',
-            border: '1px solid rgba(136, 0, 34, 0.2)'
+            border: '1px solid rgba(25, 205, 148, 0.2)'
           }}
         >
           <Typography 
             variant="h3" 
             fontWeight={700} 
-            color="#880022" 
+            color="#19CD94" 
             gutterBottom
             sx={{ 
-              textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
               mb: 3
             }}
           >
@@ -128,10 +127,10 @@ export const ViewSolutionsPage: React.FC = () => {
               sx={{
                 '& .MuiOutlinedInput-root': {
                   '&:hover fieldset': {
-                    borderColor: '#880022',
+                    borderColor: '#19CD94',
                   },
                   '&.Mui-focused fieldset': {
-                    borderColor: '#880022',
+                    borderColor: '#19CD94',
                   },
                 },
               }}
@@ -204,16 +203,16 @@ export const ViewSolutionsPage: React.FC = () => {
             boxShadow: 4,
             width: '100%',
             maxWidth: '100%',
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))',
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
             textAlign: 'center',
-            border: '1px solid rgba(136, 0, 34, 0.2)',
+            border: '1px solid rgba(25, 205, 148, 0.2)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '200px'
           }}>
-            <Typography variant="h5" color='#880022' sx={{ fontWeight: 600 }}>Carregando soluções...</Typography>
+            <Typography variant="h5" color='#19CD94' sx={{ fontWeight: 600 }}>Carregando soluções...</Typography>
           </Box>
         ) : currentSolutions.length === 0 ? (
           <Box sx={{ 
@@ -222,9 +221,9 @@ export const ViewSolutionsPage: React.FC = () => {
             borderRadius: 4,
             boxShadow: 4,
             width: '100%',
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))',
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
             textAlign: 'center',
-            border: '1px solid rgba(136, 0, 34, 0.2)',
+            border: '1px solid rgba(25, 205, 148, 0.2)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -267,7 +266,7 @@ export const ViewSolutionsPage: React.FC = () => {
                     '&:hover': { 
                       transform: 'translateY(-8px)',
                       boxShadow: 8,
-                      border: '2px solid #880022'
+                      border: '2px solid #19CD94'
                     }
                   }}
                   onClick={() => handleCardClick(solution.id)}
@@ -285,7 +284,7 @@ export const ViewSolutionsPage: React.FC = () => {
                         component="div"
                         sx={{
                           fontWeight: 600,
-                          color: '#880022',
+                          color: '#19CD94',
                           mb: 2,
                           lineHeight: 1.3,
                           textAlign: 'left',
@@ -305,7 +304,7 @@ export const ViewSolutionsPage: React.FC = () => {
                           variant="body2"
                           sx={{
                             color: 'text.secondary',
-                            backgroundColor: 'rgba(136, 0, 34, 0.1)',
+                            backgroundColor: 'rgba(25, 205, 148, 0.1)',
                             px: 2,
                             py: 0.5,
                             borderRadius: 2,
@@ -337,7 +336,7 @@ export const ViewSolutionsPage: React.FC = () => {
                       <Typography
                         variant="body1"
                         sx={{
-                          color: '#880022',
+                          color: '#19CD94',
                           fontWeight: 600,
                           fontSize: '1.1rem',
                           mt: 2,
@@ -373,16 +372,16 @@ export const ViewSolutionsPage: React.FC = () => {
             size="large"
             sx={{
               '& .MuiPaginationItem-root': {
-                color: '#880022',
+                color: '#19CD94',
                 '&.Mui-selected': {
-                  backgroundColor: '#880022',
+                  backgroundColor: '#19CD94',
                   color: 'white',
                   '&:hover': {
-                    backgroundColor: 'rgba(136, 0, 34, 0.8)',
+                    backgroundColor: 'rgba(25, 205, 148, 0.6)',
                   },
                 },
                 '&:hover': {
-                  backgroundColor: 'rgba(136, 0, 34, 0.1)',
+                  backgroundColor: 'rgba(25, 205, 148, 0.1)',
                 },
               },
             }}

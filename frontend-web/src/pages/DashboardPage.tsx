@@ -22,10 +22,10 @@ export const DashboardPage: React.FC = () => {
             borderRadius: 4, 
             boxShadow: 4,
             maxWidth: 600,
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))'
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
           }}
         >
-          <Typography variant="h4" fontWeight={600} color='#880022' gutterBottom>
+          <Typography variant="h4" fontWeight={600} color='#19CD94' gutterBottom>
             Banco de Soluções do AgroConecta
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -35,14 +35,14 @@ export const DashboardPage: React.FC = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 12 }}>
             <Button
               sx={{
-                bgcolor: '#880022', 
+                bgcolor: '#19CD94', 
                 color: 'white', 
                 px: 3, py: 1.2,
                 borderRadius: 3,
                 fontSize: '1rem',
                 fontWeight: 600,
                 transition: '0.3s',
-                '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
+                '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)', transform: 'scale(1.05)' }
               }} 
               onClick={() => navigate('/solutions')}
             >
@@ -53,14 +53,14 @@ export const DashboardPage: React.FC = () => {
             {ADMIN_CONFIG.ADMIN_MODE && (
               <Button
                 sx={{
-                  bgcolor: '#880022', 
+                  bgcolor: '#19CD94', 
                   color: 'white', 
                   px: 3, py: 1.2,
                   borderRadius: 3,
                   fontSize: '1rem',
                   fontWeight: 600,
                   transition: '0.3s',
-                  '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
+                  '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)', transform: 'scale(1.05)' }
                 }} 
                 onClick={() => navigate('/storage-solution')}
               >

@@ -96,7 +96,6 @@ export const CreateSolutionPage: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        style={{ width: '100%' }}
       >
         <Box 
           sx={{ 
@@ -106,10 +105,10 @@ export const CreateSolutionPage: React.FC = () => {
             boxShadow: 4,
             maxWidth: 600,
             mx: 'auto',
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))'
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
           }}
         >
-          <Typography variant="h4" fontWeight={600} color='#880022' gutterBottom sx={{ textAlign: 'center' }}>
+          <Typography variant="h4" fontWeight={600} color='rgba(25, 205, 148, 1)' gutterBottom sx={{ textAlign: 'center' }}>
             Adicione uma nova solução ao banco de dados
           </Typography>
 
@@ -222,7 +221,7 @@ export const CreateSolutionPage: React.FC = () => {
               margin="normal"
             />
 
-            <Typography variant="h6" sx={{ mt: 3, color: '#880022' }}>
+            <Typography variant="h6" sx={{ mt: 3, color: '#19CD94' }}>
               Contato do Proprietário (Opcional)
             </Typography>
 
@@ -263,7 +262,7 @@ export const CreateSolutionPage: React.FC = () => {
               <Button 
                 type="submit"
                 sx={{
-                  bgcolor: '#880022',
+                  bgcolor: '#19CD94',
                   color: 'white',
                   px: 4,
                   py: 1.2,
@@ -271,7 +270,7 @@ export const CreateSolutionPage: React.FC = () => {
                   fontSize: '1rem',
                   fontWeight: 600,
                   transition: '0.3s',
-                  '&:hover': { bgcolor: 'rgba(136, 0, 34, 0.8)', transform: 'scale(1.05)' }
+                  '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)', transform: 'scale(1.05)' }
                 }}
               >
                 Adicionar Solução

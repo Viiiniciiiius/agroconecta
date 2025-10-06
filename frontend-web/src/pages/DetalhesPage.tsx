@@ -113,10 +113,10 @@ export const SolutionDetailsPage: React.FC = () => {
             bgcolor: 'background.paper', 
             borderRadius: 4, 
             boxShadow: 4,
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(136,0,34,0.1))'
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
           }}
         >
-          <Typography variant="h4" fontWeight={600} color="#880022" gutterBottom>
+          <Typography variant="h4" fontWeight={600} color="#19CD94" gutterBottom>
             {solution.title}
           </Typography>
           <Card sx={{ mt: 2 }}>
@@ -205,14 +205,6 @@ export const SolutionDetailsPage: React.FC = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  style={{
-                    backgroundColor: '#880022',
-                    color: '#fff',
-                    border: 'none',
-                    padding: '10px 20px',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                  }}
                   onClick={handleDelete}
                 >
                   Excluir Solução
