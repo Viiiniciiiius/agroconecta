@@ -25,6 +25,19 @@ export const DashboardPage: React.FC = () => {
             background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
           }}
         >
+          <Box
+            display="flex"
+            justifyContent="center"
+            mb={4}
+            tabIndex={0}
+          >
+            <Box
+              component="img"
+              src="agroconecta-icon.png"
+              alt="Logo"
+              sx={{ width: 80, height: 80 }}
+            />
+          </Box>
           <Typography variant="h4" fontWeight={600} color='#19CD94' gutterBottom>
             Banco de Soluções do AgroConecta
           </Typography>
