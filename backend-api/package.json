@@ -1,5 +1,5 @@
 {
-  "name": "@todos-ganham/backend-api",
+  "name": "@agroconecta/backend-api",
   "type": "module",
   "engines": {
     "node": "20.x"
