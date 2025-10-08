@@ -1,13 +1,12 @@
 import { CreateSolutionForm } from '../types/solution';
 
-const API_URL = 'https://agroconecta-ifce.vercel.app/solutions';
+const API_URL = 'api/solutions';
 
 export const getSolutions = async (category: string) => {
     let url = API_URL;
     if (category && category.trim() !== '') {
         url += `?category=${encodeURIComponent(category)}`;
     }
-
     const response = await fetch(url, {
         method: 'GET',
         headers: {
