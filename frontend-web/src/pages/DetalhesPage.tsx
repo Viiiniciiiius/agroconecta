@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
 import { motion } from 'framer-motion';
 import { getSolution, deleteSolution } from '../api/solution';
-import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../config/categories';
+import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../utils/categories';
 import { ADMIN_CONFIG } from '../config/admin';
 
 // Interface para os dados que vêm do backend

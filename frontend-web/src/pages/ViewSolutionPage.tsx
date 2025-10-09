@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getSolutions } from '../api/solution';
 import { SolutionCardProps } from '../types/solution';
-import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel, getSubcategories } from '../config/categories';
+import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel, getSubcategories } from '../utils/categories';
 //import { solutionsSeed } from '../utils/solutionsSeed';
 
 export const ViewSolutionsPage: React.FC = () => {
@@ -263,8 +263,7 @@ export const ViewSolutionsPage: React.FC = () => {
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    '&:hover': { 
-                      transform: 'translateY(-8px)',
+                    '&:hover': {
                       boxShadow: 8,
                       border: '2px solid #19CD94'
                     }

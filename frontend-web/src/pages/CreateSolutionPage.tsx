@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { createSolution } from "../api/solution";
 import { CreateSolutionForm } from '../types/solution';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { CATEGORIES_CONFIG, CategoryType } from '../config/categories';
+import { CATEGORIES_CONFIG, CategoryType } from '../utils/categories';
 
 export const CreateSolutionPage: React.FC = () => {
   const [formData, setFormData] = useState<CreateSolutionForm>({
@@ -270,7 +270,7 @@ export const CreateSolutionPage: React.FC = () => {
                   fontSize: '1rem',
                   fontWeight: 600,
                   transition: '0.3s',
-                  '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)', transform: 'scale(1.05)' }
+                  '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }
                 }}
               >
                 Adicionar Solução

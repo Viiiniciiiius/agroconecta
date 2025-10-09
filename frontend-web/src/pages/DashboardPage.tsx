@@ -6,6 +6,7 @@ import { ADMIN_CONFIG } from '../config/admin';
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
+  const IsAdmin = localStorage.getItem('isAdmin') === 'true';
 
   return (
     <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -55,7 +56,7 @@ export const DashboardPage: React.FC = () => {
                 fontSize: '1rem',
                 fontWeight: 600,
                 transition: '0.3s',
-                '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)', transform: 'scale(1.05)' }
+                '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }
               }} 
               onClick={() => navigate('/solutions')}
             >
@@ -63,17 +64,18 @@ export const DashboardPage: React.FC = () => {
             </Button>
 
             {/* Botão "Adicionar Solução" só aparece se ADMIN_MODE for true */}
-            {ADMIN_CONFIG.ADMIN_MODE && (
+            {ADMIN_CONFIG.ADMIN_MODE || IsAdmin && (
               <Button
                 sx={{
                   bgcolor: '#19CD94', 
                   color: 'white', 
-                  px: 3, py: 1.2,
+                  px: 3, 
+                  py: 1.2,
                   borderRadius: 3,
                   fontSize: '1rem',
                   fontWeight: 600,
                   transition: '0.3s',
-                  '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)', transform: 'scale(1.05)' }
+                  '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }
                 }} 
                 onClick={() => navigate('/storage-solution')}
               >
