@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Container, Box, Typography, Card, CardContent, Link, Button } from '@mui/material';
 import { getSolution, deleteSolution } from '../api/solution';
 import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../utils/categories';
 import { ADMIN_CONFIG } from '../config/admin';
 
-// Interface para os dados que vêm do backend
 interface SolutionFromBackend {
   id: string;
   title: string;
   category: 'product' | 'service' | 'scientific_article' | 'machinery';
   subcategory?: string;
-  description?: string; // Backend retorna 'description' ao invés de 'details'
+  description?: string;
   priceDollar?: number;
   link?: string;
   publishDate: string;
@@ -60,7 +58,6 @@ export const SolutionDetailsPage: React.FC = () => {
     }
     try {
       await deleteSolution(id);
-      // Redirecionar para a página principal após deletar
       window.location.href = '/';
     } catch (error) {
       console.error('Erro ao excluir solução:', error);
@@ -102,118 +99,110 @@ export const SolutionDetailsPage: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ minHeight: '100vh', my: 4 }}>
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+      <Box 
+        sx={{ 
+          p: { xs: 4, md: 6 },
+          bgcolor: 'background.paper', 
+          borderRadius: 4, 
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
+        }}
       >
-        <Box 
-          sx={{ 
-            p: { xs: 4, md: 6 },
-            bgcolor: 'background.paper', 
-            borderRadius: 4, 
-            boxShadow: 4,
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
-          }}
-        >
-          <Typography variant="h4" fontWeight={600} color="#19CD94" gutterBottom>
-            {solution.title}
-          </Typography>
-          <Card sx={{ mt: 2 }}>
-            <CardContent sx={{ textAlign: 'left' }}>
+        <Typography variant="h4" fontWeight={600} color="#19CD94" gutterBottom>
+          {solution.title}
+        </Typography>
+        <Card sx={{ mt: 2 }}>
+          <CardContent sx={{ textAlign: 'left' }}>
+            <Typography variant="body1" gutterBottom>
+              <strong>Categoria:</strong> {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
+            </Typography>
+            {solution.subcategory && (
               <Typography variant="body1" gutterBottom>
-                <strong>Categoria:</strong> {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
+                <strong>Subcategoria:</strong> {getSubcategoryLabel(solution.category as CategoryType, solution.subcategory)}
               </Typography>
-              {solution.subcategory && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Subcategoria:</strong> {getSubcategoryLabel(solution.category as CategoryType, solution.subcategory)}
-                </Typography>
-              )}
-              {solution.description && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Descrição:</strong> {solution.description}
-                </Typography>
-              )}
-              {solution.priceDollar !== undefined && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Preço:</strong> ${solution.priceDollar}
-                </Typography>
-              )}
-              {solution.link && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Link:</strong> <Link href={solution.link} target="_blank" rel="noopener">{solution.link}</Link>
-                </Typography>
-              )}
+            )}
+            {solution.description && (
               <Typography variant="body1" gutterBottom>
-                <strong>Data de Publicação:</strong> {new Date(solution.publishDate).toLocaleDateString()}
+                <strong>Descrição:</strong> {solution.description}
               </Typography>
-              {solution.dataColeta && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Data da Coleta:</strong> {(() => {
-                    const d = new Date(solution.dataColeta);
-                    return isNaN(d.getTime()) ? solution.dataColeta : d.toLocaleDateString();
-                  })()}
-                </Typography>
-              )}
-              {solution.starRating !== undefined && (
-                <Typography variant="body1" gutterBottom>
-                  <strong>Classificação:</strong> {solution.starRating} / 5
-                </Typography>
-              )}
+            )}
+            {solution.priceDollar !== undefined && (
               <Typography variant="body1" gutterBottom>
-                <strong>Contato do Proprietário:</strong>
+                <strong>Preço:</strong> ${solution.priceDollar}
               </Typography>
-              {solution.ownerContact && (
-                solution.ownerContact.email || solution.ownerContact.phone || solution.ownerContact.other ? (
-                  <>
-                    {solution.ownerContact.email && (
-                      <Typography variant="body2">
-                        <strong>Email:</strong> {solution.ownerContact.email}
-                      </Typography>
-                    )}
-                    {solution.ownerContact.phone && (
-                      <Typography variant="body2">
-                        <strong>Telefone:</strong> {solution.ownerContact.phone}
-                      </Typography>
-                    )}
-                    {solution.ownerContact.other && (
-                      <Typography variant="body2">
-                        <strong>Outros:</strong> {solution.ownerContact.other}
-                      </Typography>
-                    )}
-                  </>
-                ) : (
-                  <Typography variant="body2" color="text.secondary">
-                    via plataforma
-                  </Typography>
-                )
-              )}
-              {!solution.ownerContact && (
+            )}
+            {solution.link && (
+              <Typography variant="body1" gutterBottom>
+                <strong>Link:</strong> <Link href={solution.link} target="_blank" rel="noopener">{solution.link}</Link>
+              </Typography>
+            )}
+            <Typography variant="body1" gutterBottom>
+              <strong>Data de Publicação:</strong> {new Date(solution.publishDate).toLocaleDateString()}
+            </Typography>
+            {solution.dataColeta && (
+              <Typography variant="body1" gutterBottom>
+                <strong>Data da Coleta:</strong> {(() => {
+                  const d = new Date(solution.dataColeta);
+                  return isNaN(d.getTime()) ? solution.dataColeta : d.toLocaleDateString();
+                })()}
+              </Typography>
+            )}
+            {solution.starRating !== undefined && (
+              <Typography variant="body1" gutterBottom>
+                <strong>Classificação:</strong> {solution.starRating} / 5
+              </Typography>
+            )}
+            <Typography variant="body1" gutterBottom>
+              <strong>Contato do Proprietário:</strong>
+            </Typography>
+            {solution.ownerContact && (
+              solution.ownerContact.email || solution.ownerContact.phone || solution.ownerContact.other ? (
+                <>
+                  {solution.ownerContact.email && (
+                    <Typography variant="body2">
+                      <strong>Email:</strong> {solution.ownerContact.email}
+                    </Typography>
+                  )}
+                  {solution.ownerContact.phone && (
+                    <Typography variant="body2">
+                      <strong>Telefone:</strong> {solution.ownerContact.phone}
+                    </Typography>
+                  )}
+                  {solution.ownerContact.other && (
+                    <Typography variant="body2">
+                      <strong>Outros:</strong> {solution.ownerContact.other}
+                    </Typography>
+                  )}
+                </>
+              ) : (
                 <Typography variant="body2" color="text.secondary">
                   via plataforma
                 </Typography>
-              )}
-              {solution.createdAt && (
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                  <strong>Criado em:</strong> {new Date(solution.createdAt).toLocaleDateString()}
-                </Typography>
-              )}
-            </CardContent>
-            {/* Botão "Excluir Solução" só aparece se ADMIN_MODE for true */}
-            {ADMIN_CONFIG.ADMIN_MODE && (
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleDelete}
-                >
-                  Excluir Solução
-                </motion.button>
-              </Box>
+              )
             )}
-          </Card>
-        </Box>
-      </motion.div>
+            {!solution.ownerContact && (
+              <Typography variant="body2" color="text.secondary">
+                via plataforma
+              </Typography>
+            )}
+            {solution.createdAt && (
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                <strong>Criado em:</strong> {new Date(solution.createdAt).toLocaleDateString()}
+              </Typography>
+            )}
+          </CardContent>
+          {ADMIN_CONFIG.ADMIN_MODE && (
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={handleDelete}
+              >
+                Excluir Solução
+              </Button>
+            </Box>
+          )}
+        </Card>
+      </Box>
     </Container>
   );
 };
