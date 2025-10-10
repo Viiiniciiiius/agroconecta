@@ -1,6 +1,6 @@
 import { CreateSolutionForm } from '../types/solution';
 
-const API_URL = 'https://agroconecta-backend.vercel.app/';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4030/solutions';
 
 export const getSolutions = async (category: string) => {
     let url = API_URL;
@@ -26,12 +26,13 @@ export const getSolution = async (id: string) => {
     return data;
 };
 
-export const createSolution = async (solution: CreateSolutionForm) => {
+export const createSolution = async (solution: CreateSolutionForm, adminToken: string) => {
     console.log('📤 Enviando dados:', solution);
     const response = await fetch(`${API_URL}/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminToken}`
         },
         body: JSON.stringify(solution),
     });
@@ -47,9 +48,12 @@ export const createSolution = async (solution: CreateSolutionForm) => {
     return data;
 };
 
-export const deleteSolution = async (id: string) => {
+export const deleteSolution = async (id: string, adminToken: string) => {
     const response = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${adminToken}`
+        }
     });
     if (!response.ok) {
         throw new Error(`Erro ao deletar solução: ${response.status}`);

@@ -3,33 +3,16 @@ import { useParams } from 'react-router-dom';
 import { Container, Box, Typography, Card, CardContent, Link, Button } from '@mui/material';
 import { getSolution, deleteSolution } from '../api/solution';
 import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../utils/categories';
-import { ADMIN_CONFIG } from '../config/admin';
-
-interface SolutionFromBackend {
-  id: string;
-  title: string;
-  category: 'product' | 'service' | 'scientific_article' | 'machinery';
-  subcategory?: string;
-  description?: string;
-  priceDollar?: number;
-  link?: string;
-  publishDate: string;
-  dataColeta?: string;
-  starRating?: number;
-  ownerContact?: {
-    email?: string;
-    phone?: string;
-    other?: string;
-  };
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { SolutionFromBackend } from '../types/solution';
 
 export const SolutionDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [solution, setSolution] = useState<SolutionFromBackend | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const adminToken = localStorage.getItem('token') || '';
+  const ADMIN_MODE = process.env.ADMIN_MODE === 'true';
+
 
   useEffect(() => {
     if (!id) {
@@ -57,7 +40,7 @@ export const SolutionDetailsPage: React.FC = () => {
       return;
     }
     try {
-      await deleteSolution(id);
+      await deleteSolution(id, adminToken);
       window.location.href = '/';
     } catch (error) {
       console.error('Erro ao excluir solução:', error);
@@ -190,7 +173,7 @@ export const SolutionDetailsPage: React.FC = () => {
               </Typography>
             )}
           </CardContent>
-          {ADMIN_CONFIG.ADMIN_MODE && (
+          {(ADMIN_MODE || adminToken) && (
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
               <Button
                 variant="outlined"

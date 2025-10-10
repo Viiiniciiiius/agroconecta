@@ -4,13 +4,20 @@ import {
   SolutionApiDto,
 } from 'routes/solution/solution.types';
 import { ISolution, SolutionModel } from 'models/solution';
-
 /**
  * Creates a new solution.
  * @param {Partial<ISolution>} solutionData - The solution data.
  * @returns {Promise<ISolution>} The created solution.
  */
-export const createSolution = async (solutionData: CreateSolutionRequest): Promise<ISolution> => {
+export const createSolution = async (solutionData: CreateSolutionRequest, token: string): Promise<ISolution> => {
+  // Verifica se o token de administrador é válido
+  const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
+  if (!ADMIN_TOKEN) {
+    throw new Error('Token de administrador não configurado no ambiente');
+  }
+  if (token !== ADMIN_TOKEN) {
+    throw new Error('Token de autorização inválido');
+  }
   try {
     // Mapear description para details no banco
     const dataToSave = {
@@ -138,7 +145,15 @@ export const getSolutionById = async (_id: string): Promise<SolutionApiDto | nul
  * @param {string} _id - The solution ID.
  * @returns {Promise<ISolution | null>} The deleted solution or null if not found.
  */
-export const deleteSolution = async (_id: string): Promise<ISolution | null> => {
+export const deleteSolution = async (_id: string, token: string): Promise<ISolution | null> => {
+  
+  const ADMIN_TOKEN = process.env.ADMIN_TOKEN_API;
+  if (!ADMIN_TOKEN) {
+    throw new Error('Token de administrador não configurado no ambiente');
+  }
+  if (token !== ADMIN_TOKEN) {
+    throw new Error('Token de autorização inválido');
+  }
   try {
     const deletedSolution = await SolutionModel.findByIdAndDelete(_id);
     if (!deletedSolution) {

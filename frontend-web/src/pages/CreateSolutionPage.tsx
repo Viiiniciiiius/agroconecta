@@ -25,6 +25,8 @@ export const CreateSolutionPage: React.FC = () => {
       other: ''
     }
   });
+  const adminToken = localStorage.getItem('token');
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | 
@@ -76,7 +78,7 @@ export const CreateSolutionPage: React.FC = () => {
 
     try {
       console.log('📤 Enviando dados do formulário:', dataToSend);
-      await createSolution(dataToSend);
+      await createSolution(dataToSend, adminToken || '');
       console.log('✅ Solução criada com sucesso!', dataToSend); 
     } catch (error) {
       console.error('❌ Erro ao criar solução:', error);
@@ -143,7 +145,6 @@ export const CreateSolutionPage: React.FC = () => {
             </Select>
           </FormControl>
 
-          {/* Subcategoria - só aparece se uma categoria for selecionada */}
           {formData.category && (
             <FormControl fullWidth margin="normal">
               <InputLabel id="subcategory-label">Subcategoria (Opcional)</InputLabel>

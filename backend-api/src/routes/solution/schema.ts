@@ -1,4 +1,14 @@
+import { FastifySchema } from 'fastify';
+
+const headers: FastifySchema['headers'] = {
+  type: 'object',
+  properties: {
+    authorization: { type: 'string', description: 'Bearer token' },
+  },
+};
+
 export const createSolutionSchema = {
+  headers,
   body: {
     type: 'object',
     required: ['title', 'category', 'description'] as string[],
@@ -60,8 +70,8 @@ export const createSolutionSchema = {
         details: { type: 'string' },
         priceDollar: { type: 'number' },
         link: { type: 'string' },
-  publishDate: { type: 'string' },
-  dataColeta: { type: 'string' },
+        publishDate: { type: 'string' },
+        dataColeta: { type: 'string' },
         starRating: { type: 'number' },
         ownerContact: {
           type: 'object',
@@ -82,7 +92,7 @@ export const getSolutionsSchema = {
     type: 'object',
     required: [] as string[],
     properties: {
-  category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery', 'irrigation'] },
+      category: { type: 'string', enum: ['product', 'service', 'scientific_article', 'machinery', 'irrigation'] },
       subcategory: { type: 'string' },
     },
   },
@@ -135,8 +145,8 @@ export const getSolutionByIdSchema = {
         description: { type: 'string' },
         category: { type: 'string' },
         subcategory: { type: 'string' },
-  details: { type: 'string' },
-  dataColeta: { type: 'string' },
+        details: { type: 'string' },
+        dataColeta: { type: 'string' },
         priceDollar: { type: 'number' },
         link: { type: 'string' },
         publishDate: { type: 'string' },
@@ -156,6 +166,7 @@ export const getSolutionByIdSchema = {
 };
 
 export const deleteSolutionSchema = {
+  headers,
   params: {
     type: 'object',
     required: ['id'] as string[],

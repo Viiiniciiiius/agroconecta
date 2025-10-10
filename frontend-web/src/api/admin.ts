@@ -1,0 +1,22 @@
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4023/auth';
+
+export const AuthAdmin = async (adminData: { name: string; password: string }) => {
+    console.log('📤 Enviando dados:', adminData);
+    const response = await fetch(`${API_URL}/admin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(adminData),
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text();
+        console.error('❌ Erro na resposta:', response.status, errorBody);
+        throw new Error(`Request failed with status ${response.status}. Body: ${errorBody}`);
+    }
+
+    const token = await response.json();
+    localStorage.setItem('token', token);
+    return token;
+};

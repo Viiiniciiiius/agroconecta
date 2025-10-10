@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import { errorHandler } from 'utils/errorHandler';
 import mongoosePlugin from 'plugins/mongoose';
 import solutionRoutes from 'routes/solution';
+import authRoutes from 'routes/auth';
 import { rateLimiter } from 'utils/rateLimiter';
 /**
  * Creates and configures the main Fastify application instance
@@ -75,5 +76,6 @@ app.addHook('preHandler', rateLimiter);
  */
 
 await app.register(solutionRoutes, { prefix: '/solutions' });
+await app.register(authRoutes, { prefix: '/auth' });
 
 export default app;

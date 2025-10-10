@@ -4,8 +4,8 @@ import '../App.css';
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const IsAdmin = localStorage.getItem('isAdmin') === 'true';
   const ADMIN_MODE = process.env.ADMIN_MODE === 'true';
+  const adminToken = localStorage.getItem('token') || '';
 
   return (
     <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -55,7 +55,7 @@ export const DashboardPage: React.FC = () => {
             Ver Soluções
           </Button>
 
-          {ADMIN_MODE || IsAdmin && (
+          {(ADMIN_MODE || adminToken) && (
             <Button
               sx={{
                 bgcolor: '#19CD94', 

@@ -52,11 +52,17 @@ export async function getSolutionByIdHandler(
  * Handles solution creation requests
 */
 export async function createSolutionHandler(
-    request: FastifyRequest<{ Body: CreateSolutionRequest }>,
+    request: FastifyRequest<{ Body: CreateSolutionRequest, Headers: { authorization: string } }>,
     reply: FastifyReply,
 ) {
+    const adminToken = request.headers.authorization?.split('Bearer ')[1];
+    if (!adminToken) {
+        reply.code(401).send({ error: 'Token de autorização não fornecido' });
+        return;
+    }
+
     try {
-        const solution = await createSolution(request.body);
+        const solution = await createSolution(request.body, adminToken);
         reply.code(201).send(solution);
     } catch (error) {
         reply.code(400).send({ error: error.message });
@@ -67,11 +73,16 @@ export async function createSolutionHandler(
  * Handles solution deletion requests
  */
 export async function deleteSolutionHandler(
-    request: FastifyRequest<{ Params: { id: string } }>,
+    request: FastifyRequest<{ Params: { id: string }, Headers: { authorization: string } }>,
     reply: FastifyReply,
 ) {
+    const adminToken = request.headers.authorization?.split('Bearer ')[1];
+    if (!adminToken) {
+        reply.code(401).send({ error: 'Token de autorização não fornecido' });
+        return;
+    }
     try {
-        await deleteSolution(request.params.id);
+        await deleteSolution(request.params.id, adminToken);
         reply.code(204).send();
     } catch (error) {
         if (error.message.includes('não encontrada')) {
