@@ -1,11 +1,11 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import { ADMIN_CONFIG } from '../config/admin';
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const IsAdmin = localStorage.getItem('isAdmin') === 'true';
+  const ADMIN_MODE = process.env.ADMIN_MODE === 'true';
 
   return (
     <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -55,7 +55,7 @@ export const DashboardPage: React.FC = () => {
             Ver Soluções
           </Button>
 
-          {ADMIN_CONFIG.ADMIN_MODE || IsAdmin && (
+          {ADMIN_MODE || IsAdmin && (
             <Button
               sx={{
                 bgcolor: '#19CD94', 

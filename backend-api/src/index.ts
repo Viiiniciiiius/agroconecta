@@ -4,11 +4,13 @@ import app from './app';
 
 dotenv.config();
 
+const appPromise = app.ready();
+
 export default async function handler(
   req: FastifyRequest,
   reply: FastifyReply,
 ) {
-  await app.ready();
+  await appPromise;
   app.server.emit('request', req, reply);
 }
 
