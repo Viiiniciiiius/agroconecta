@@ -1,20 +1,7 @@
-/**
- * @fileoverview MongoDB connection plugin for Fastify
- * Manages database connection lifecycle and provides Mongoose instance decoration
- */
-
 import fp from 'fastify-plugin';
 import mongoose from 'mongoose';
 import { FastifyInstance } from 'fastify';
 
-/**
- * Initializes MongoDB connection and decorates Fastify instance with Mongoose
- *
- * @throws {Error} If connection to MongoDB fails
- *
- * @requires process.env.MONGO_HOST - MongoDB connection string
- *
- */
 async function mongoosePlugin(fastify: FastifyInstance) {
   try {
     console.log('🔌 Connecting to MongoDB Atlas...');
@@ -25,7 +12,6 @@ async function mongoosePlugin(fastify: FastifyInstance) {
     
     fastify.log.info(`Database URL: ${process.env.MONGO_HOST.replace(/\/\/.*@/, '//***:***@')}`);
 
-    // Configure mongoose options for Atlas
     const mongooseOptions = {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 30000,
@@ -34,20 +20,17 @@ async function mongoosePlugin(fastify: FastifyInstance) {
       retryWrites: true
     };
 
-    // Connect with better error handling
     await mongoose.connect(process.env.MONGO_HOST, {
       ...mongooseOptions,
-      dbName: process.env.MONGO_DBNAME // 🔹 Força o banco AgroConecta
+      dbName: process.env.MONGO_DBNAME
     });
     
 
-    // Test the connection
     await mongoose.connection.db.admin().ping();
     
     fastify.decorate('mongoose', mongoose);
     console.log('✅ MongoDB Atlas connected successfully');
     
-    // Handle connection events
     mongoose.connection.on('error', (err) => {
       console.error('❌ MongoDB connection error:', err);
     });
@@ -60,7 +43,6 @@ async function mongoosePlugin(fastify: FastifyInstance) {
     console.error('❌ Error connecting to MongoDB Atlas:', error);
     fastify.log.error('Error connecting to MongoDB Atlas:', error);
     
-    // Provide helpful error messages
     if (error.message.includes('whitelist')) {
       console.error('💡 Tip: Add your IP to MongoDB Atlas Network Access whitelist');
       console.error('   Your current IP: 45.166.22.254');
@@ -70,9 +52,4 @@ async function mongoosePlugin(fastify: FastifyInstance) {
   }
 }
 
-/**
- * Wrapped plugin with fastify-plugin to share decorators across scope
- *
- * @type {FastifyPluginAsync}
- */
 export default fp(mongoosePlugin);
