@@ -6,6 +6,9 @@ export const theme = createTheme({
             main: '#19CD94',
         },
     },
+    typography: {
+        fontFamily: 'Noto Sans, sans-serif',
+    },
 });
 
 export default theme;
