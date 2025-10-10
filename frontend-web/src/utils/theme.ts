@@ -9,6 +9,15 @@ export const theme = createTheme({
     typography: {
         fontFamily: 'Noto Sans, sans-serif',
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                },
+            },
+        },
+    },
 });
 
 export default theme;

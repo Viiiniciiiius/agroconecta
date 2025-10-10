@@ -53,7 +53,6 @@ export const ViewSolutionsPage: React.FC = () => {
     navigate(`/solution/${id}`);
   };
 
-  // Lógica de paginação (client-side)
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentSolutions = Array.isArray(solutions)
@@ -137,7 +136,6 @@ export const ViewSolutionsPage: React.FC = () => {
           </Select>
         </FormControl>
 
-        {/* Filtro de subcategoria, aparece só se categoria selecionada */}
         {selectedCategory && (
           <FormControl
             fullWidth
@@ -232,7 +230,7 @@ export const ViewSolutionsPage: React.FC = () => {
               maxWidth: '400px'
             }}
           >
-            Tente ajustar os filtros ou adicionar uma nova solução
+            Tente ajustar os filtros
           </Typography>
         </Box>
       ) : (
