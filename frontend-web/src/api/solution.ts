@@ -1,6 +1,6 @@
 import { CreateSolutionForm } from '../types/solution';
 
-const API_URL = 'api/solutions';
+const API_URL = 'https://agroconecta-backend.vercel.app/';
 
 export const getSolutions = async (category: string) => {
     let url = API_URL;
