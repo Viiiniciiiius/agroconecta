@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Box, Typography, Card, CardContent, Link, Button } from '@mui/material';
+import { Container, Box, Typography, Card, CardContent, Link, Button, CircularProgress } from '@mui/material';
 import { getSolution, deleteSolution } from '../api/solution';
 import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../utils/categories';
 import { SolutionFromBackend } from '../types/solution';
@@ -11,7 +11,7 @@ export const SolutionDetailsPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const adminToken = localStorage.getItem('token') || '';
-  const ADMIN_MODE = process.env.ADMIN_MODE === 'true';
+  const ADMIN_MODE = import.meta.env.VITE_ADMIN_MODE === 'true';
 
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export const SolutionDetailsPage: React.FC = () => {
       window.location.href = '/';
     } catch (error) {
       console.error('Erro ao excluir solução:', error);
-      setError('Erro ao excluir a solução. Tente novamente.');
+      setError('Erro ao excluir a solução, talvez seu token seja inválido.');
     }
   };
 
@@ -59,7 +59,21 @@ export const SolutionDetailsPage: React.FC = () => {
   if (loading) {
     return (
       <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant="body1" align="center">Carregando detalhes da solução...</Typography>
+        <Box 
+          sx={{ 
+            p: { xs: 4, md: 6 },
+            bgcolor: 'background.paper', 
+            borderRadius: 4, 
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <CircularProgress variant="indeterminate" size={24} />
+          <Typography variant="h4" align="center">Carregando detalhes da solução...</Typography>
+        </Box>
       </Container>
     );
   }
@@ -67,7 +81,16 @@ export const SolutionDetailsPage: React.FC = () => {
   if (error) {
     return (
       <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant="body1" align="center" color="error">{error}</Typography>
+        <Box 
+          sx={{ 
+            p: { xs: 4, md: 6 },
+            bgcolor: 'background.paper', 
+            borderRadius: 4, 
+            background: 'linear-gradient(135deg, rgba(184, 86, 0, 0.1), rgba(205, 25, 25, 0.1))'
+          }}
+        >
+          <Typography variant="h4" align="center" color="error">{error}</Typography>
+        </Box>
       </Container>
     );
   }
@@ -75,7 +98,16 @@ export const SolutionDetailsPage: React.FC = () => {
   if (!solution) {
     return (
       <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant="body1" align="center">Nenhuma solução encontrada.</Typography>
+        <Box 
+          sx={{ 
+            p: { xs: 4, md: 6 },
+            bgcolor: 'background.paper', 
+            borderRadius: 4, 
+            background: 'linear-gradient(135deg, rgba(129, 144, 144, 0.1), rgba(77, 205, 165, 0.1))'
+          }}
+        >
+          <Typography variant="h4" align="center" color="gray">Nenhuma solução encontrada.</Typography>
+        </Box>
       </Container>
     );
   }
@@ -90,10 +122,14 @@ export const SolutionDetailsPage: React.FC = () => {
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
         }}
       >
-        <Typography variant="h4" fontWeight={600} color="#19CD94" gutterBottom>
+        <Typography variant="h5" fontWeight={600} color="#19CD94" sx={{pb: 4}} gutterBottom>
           {solution.title}
         </Typography>
-        <Card sx={{ mt: 2 }}>
+        <Card sx={{ 
+          mt: 2,
+          borderRadius: 2,
+          boxShadow: 0,
+        }}>
           <CardContent sx={{ textAlign: 'left' }}>
             <Typography variant="body1" gutterBottom>
               <strong>Categoria:</strong> {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
@@ -134,33 +170,27 @@ export const SolutionDetailsPage: React.FC = () => {
                 <strong>Classificação:</strong> {solution.starRating} / 5
               </Typography>
             )}
-            <Typography variant="body1" gutterBottom>
-              <strong>Contato do Proprietário:</strong>
-            </Typography>
-            {solution.ownerContact && (
-              solution.ownerContact.email || solution.ownerContact.phone || solution.ownerContact.other ? (
-                <>
-                  {solution.ownerContact.email && (
-                    <Typography variant="body2">
-                      <strong>Email:</strong> {solution.ownerContact.email}
-                    </Typography>
-                  )}
-                  {solution.ownerContact.phone && (
-                    <Typography variant="body2">
-                      <strong>Telefone:</strong> {solution.ownerContact.phone}
-                    </Typography>
-                  )}
-                  {solution.ownerContact.other && (
-                    <Typography variant="body2">
-                      <strong>Outros:</strong> {solution.ownerContact.other}
-                    </Typography>
-                  )}
-                </>
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  via plataforma
+            {solution.ownerContact && (solution.ownerContact.email || solution.ownerContact.phone || solution.ownerContact.other) && (
+              <>
+                <Typography variant="body1" gutterBottom>
+                  <strong>Contato do Proprietário:</strong>
                 </Typography>
-              )
+                {solution.ownerContact.email && (
+                  <Typography variant="body2">
+                    <strong>Email:</strong> {solution.ownerContact.email}
+                  </Typography>
+                )}
+                {solution.ownerContact.phone && (
+                  <Typography variant="body2">
+                    <strong>Telefone:</strong> {solution.ownerContact.phone}
+                  </Typography>
+                )}
+                {solution.ownerContact.other && (
+                  <Typography variant="body2">
+                    <strong>Outros:</strong> {solution.ownerContact.other}
+                  </Typography>
+                )}
+                </>
             )}
             {!solution.ownerContact && (
               <Typography variant="body2" color="text.secondary">
@@ -178,6 +208,15 @@ export const SolutionDetailsPage: React.FC = () => {
               <Button
                 variant="outlined"
                 color="error"
+                sx={{
+                  borderColor: 'error.main',
+                  color: 'error.main',
+                  '&:hover': {
+                    borderColor: 'error.dark',
+                    backgroundColor: 'error.light',
+                    color: 'error.contrastText',
+                  },
+                }}
                 onClick={handleDelete}
               >
                 Excluir Solução

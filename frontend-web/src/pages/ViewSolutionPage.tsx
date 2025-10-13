@@ -242,21 +242,30 @@ export const ViewSolutionsPage: React.FC = () => {
                   cursor: 'pointer',
                   height: '100%',
                   display: 'flex',
-                  flexDirection: 'column',
+                  boxShadow: 0,
                   '&:hover': {
-                    border: '2px solid #19CD94'
-                  }
+                    boxShadow: '0 8px 20px rgba(25, 205, 148, 0.4)',
+                    transform: 'translateY(-4px)',
+                    transition: 'all 0.2s ease-in-out',
+                  },
                 }}
                 onClick={() => handleCardClick(solution.id)}
               >
                 <CardContent sx={{
                   flexGrow: 1,
+                  p: 3,
                   display: 'flex',
                   flexDirection: 'column',
-                  p: 3,
-                  justifyContent: 'space-between',
+                  justifyContent: 'space-around',
                 }}>
-                  <Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between',
+                    }}
+                  >
                     <Typography
                       variant="h6"
                       component="div"

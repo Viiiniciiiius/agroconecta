@@ -1,9 +1,11 @@
 import { CreateSolutionForm } from '../types/solution';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4030/solutions';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4023/';
+const API_ROUTE = API_URL + 'solutions';
 
 export const getSolutions = async (category: string) => {
-    let url = API_URL;
+    let url = API_ROUTE;
+    console.log(url);
     if (category && category.trim() !== '') {
         url += `?category=${encodeURIComponent(category)}`;
     }
@@ -18,7 +20,7 @@ export const getSolutions = async (category: string) => {
 };
 
 export const getSolution = async (id: string) => {
-    const response = await fetch(`${API_URL}/${id}`);
+    const response = await fetch(`${API_ROUTE}/${id}`);
     if (!response.ok) {
         throw new Error(`Erro ao buscar solução: ${response.status}`);
     }
@@ -28,7 +30,7 @@ export const getSolution = async (id: string) => {
 
 export const createSolution = async (solution: CreateSolutionForm, adminToken: string) => {
     console.log('📤 Enviando dados:', solution);
-    const response = await fetch(`${API_URL}/create`, {
+    const response = await fetch(`${API_ROUTE}/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -49,7 +51,7 @@ export const createSolution = async (solution: CreateSolutionForm, adminToken: s
 };
 
 export const deleteSolution = async (id: string, adminToken: string) => {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`${API_ROUTE}/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${adminToken}`

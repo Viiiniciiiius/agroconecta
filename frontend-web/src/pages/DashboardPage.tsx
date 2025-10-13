@@ -4,7 +4,7 @@ import '../App.css';
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const ADMIN_MODE = process.env.ADMIN_MODE === 'true';
+  const ADMIN_MODE = import.meta.env.VITE_ADMIN_MODE === 'true';
   const adminToken = localStorage.getItem('token') || '';
 
   return (

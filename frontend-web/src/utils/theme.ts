@@ -8,6 +8,9 @@ export const theme = createTheme({
     },
     typography: {
         fontFamily: 'Noto Sans, sans-serif',
+        body2: {
+            paddingBottom: '1em',
+        },
     },
     components: {
         MuiButton: {

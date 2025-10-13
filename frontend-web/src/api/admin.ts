@@ -1,8 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4023/auth';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4023/';
+const API_ROUTE = API_URL + 'auth';
 
 export const AuthAdmin = async (adminData: { name: string; password: string }) => {
     console.log('📤 Enviando dados:', adminData);
-    const response = await fetch(`${API_URL}/admin`, {
+    const response = await fetch(`${API_ROUTE}/admin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
