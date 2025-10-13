@@ -1,6 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import agroconectaIcon from '../utils/agroconecta-icon.svg';
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -27,12 +28,12 @@ export const DashboardPage: React.FC = () => {
         >
           <Box
             component="img"
-            src="agroconecta-icon.png"
+            src={agroconectaIcon}
             alt="Logo"
-            sx={{ height: 80 }}
+            sx={{ height: 100 }}
           />
         </Box>
-        <Typography variant="h4" fontWeight={600} color='#19CD94' gutterBottom>
+        <Typography variant="h4" fontWeight={600} color='#0FA173' gutterBottom>
           Banco de Soluções do AgroConecta
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -42,7 +43,7 @@ export const DashboardPage: React.FC = () => {
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 12 }}>
           <Button
             sx={{
-              bgcolor: '#19CD94', 
+              bgcolor: '#0FA173', 
               color: 'white', 
               px: 3, py: 1.2,
               borderRadius: 3,
@@ -58,7 +59,7 @@ export const DashboardPage: React.FC = () => {
           {(ADMIN_MODE || adminToken) && (
             <Button
               sx={{
-                bgcolor: '#19CD94', 
+                bgcolor: '#0FA173', 
                 color: 'white', 
                 px: 3, 
                 py: 1.2,

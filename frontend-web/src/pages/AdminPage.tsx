@@ -7,6 +7,7 @@ import {
   Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { AuthAdmin } from '../api/admin';
 
 const AdminPage= () => {
   const navigate = useNavigate();
@@ -27,15 +28,9 @@ const AdminPage= () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    localStorage.setItem('adminName', formData.adminName);
-    localStorage.setItem('adminPwd', formData.adminPwd);
-
-    console.log('Dados salvos no localStorage:', {
-      adminName: formData.adminName,
-      adminPwd: formData.adminPwd,
-    });
-    
     setFormData({ adminName: '', adminPwd: '' });
+    AuthAdmin({ name: formData.adminName, password: formData.adminPwd });
+
     navigate('/');
   };
 
@@ -84,7 +79,7 @@ const AdminPage= () => {
             <Button
               type="submit"
               sx={{
-                bgcolor: '#19CD94',
+                bgcolor: '#0FA173',
                 color: 'white',
                 px: 4,
                 py: 1,

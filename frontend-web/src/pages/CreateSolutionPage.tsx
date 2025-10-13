@@ -212,7 +212,7 @@ export const CreateSolutionPage: React.FC = () => {
             margin="normal"
           />
 
-          <Typography variant="h6" sx={{ mt: 3, color: '#19CD94' }}>
+          <Typography variant="h6" sx={{ mt: 3, color: '#0FA173' }}>
             Contato do Proprietário (Opcional)
           </Typography>
 
@@ -253,7 +253,7 @@ export const CreateSolutionPage: React.FC = () => {
             <Button 
               type="submit"
               sx={{
-                bgcolor: '#19CD94',
+                bgcolor: '#0FA173',
                 color: 'white',
                 px: 4,
                 py: 1.2,

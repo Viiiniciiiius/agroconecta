@@ -122,7 +122,7 @@ export const SolutionDetailsPage: React.FC = () => {
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
         }}
       >
-        <Typography variant="h5" fontWeight={600} color="#19CD94" sx={{pb: 4}} gutterBottom>
+        <Typography variant="h5" fontWeight={600} color="#0FA173" sx={{pb: 4}} gutterBottom>
           {solution.title}
         </Typography>
         <Card sx={{ 

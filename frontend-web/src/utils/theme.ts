@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material";
 export const theme = createTheme({
     palette: {
         primary: {
-            main: '#19CD94',
+            main: '#0FA173',
         },
     },
     typography: {
