@@ -1,7 +1,7 @@
 import { CreateSolutionForm } from '../types/solution';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4023/';
-const API_ROUTE = API_URL + 'solutions';
+const API_ROUTE = API_URL + '/solutions';
 
 export const getSolutions = async (category: string) => {
     let url = API_ROUTE;

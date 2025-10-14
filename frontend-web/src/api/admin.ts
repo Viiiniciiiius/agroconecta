@@ -1,5 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4023/';
-const API_ROUTE = API_URL + 'auth';
+const API_ROUTE = API_URL + '/auth';
 
 export const AuthAdmin = async (adminData: { name: string; password: string }) => {
     console.log('📤 Enviando dados:', adminData);
