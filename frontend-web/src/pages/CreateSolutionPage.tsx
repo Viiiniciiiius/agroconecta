@@ -100,7 +100,7 @@ export const CreateSolutionPage: React.FC = () => {
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
         }}
       >
-        <Typography variant="h4" fontWeight={600} color='rgba(25, 205, 148, 1)' gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" fontWeight={600} color='#0FA173' gutterBottom sx={{ textAlign: 'center' }}>
           Adicione uma nova solução ao banco de dados
         </Typography>
 
