@@ -27,7 +27,7 @@ export const ViewSolutionsPage: React.FC = () => {
       }
       setSolutions(filtered);
     } catch (error) {
-      console.error('Erro ao buscar soluções:', error);
+      console.error('Erro ao buscar as soluções:', error);
     } finally {
       setLoading(false);
     }
