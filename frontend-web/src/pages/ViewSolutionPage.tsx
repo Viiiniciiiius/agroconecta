@@ -83,7 +83,7 @@ export const ViewSolutionsPage: React.FC = () => {
         <Typography 
           variant="h3" 
           fontWeight={700} 
-          color="#0FA173" 
+          color="#0d8861ff" 
           gutterBottom
           sx={{ 
             mb: 3
@@ -117,10 +117,10 @@ export const ViewSolutionsPage: React.FC = () => {
             sx={{
               '& .MuiOutlinedInput-root': {
                 '&:hover fieldset': {
-                  borderColor: '#0FA173',
+                  borderColor: '#0d8861ff',
                 },
                 '&.Mui-focused fieldset': {
-                  borderColor: '#0FA173',
+                  borderColor: '#0d8861ff',
                 },
               },
             }}
@@ -194,7 +194,7 @@ export const ViewSolutionsPage: React.FC = () => {
           justifyContent: 'center',
           minHeight: '200px'
         }}>
-          <Typography variant="h5" color='#0FA173' sx={{ fontWeight: 600 }}>Carregando soluções...</Typography>
+          <Typography variant="h5" color='#0d8861ff' sx={{ fontWeight: 600 }}>Carregando soluções...</Typography>
         </Box>
       ) : currentSolutions.length === 0 ? (
         <Box sx={{ 
@@ -271,7 +271,7 @@ export const ViewSolutionsPage: React.FC = () => {
                       component="div"
                       sx={{
                         fontWeight: 600,
-                        color: '#0FA173',
+                        color: '#0d8861ff',
                         mb: 2,
                         lineHeight: 1.3,
                         textAlign: 'left',
@@ -323,7 +323,7 @@ export const ViewSolutionsPage: React.FC = () => {
                     <Typography
                       variant="body1"
                       sx={{
-                        color: '#0FA173',
+                        color: '#0d8861ff',
                         fontWeight: 600,
                         fontSize: '1.1rem',
                         mt: 2,
@@ -346,7 +346,7 @@ export const ViewSolutionsPage: React.FC = () => {
           mt: 6,
           p: 3,
           bgcolor: 'background.paper',
-          borderRadius: 3,
+          borderRadius: 2,
         }}>
           <Pagination
             count={totalPages}
@@ -356,9 +356,9 @@ export const ViewSolutionsPage: React.FC = () => {
             size="large"
             sx={{
               '& .MuiPaginationItem-root': {
-                color: '#0FA173',
+                color: '#0d8861ff',
                 '&.Mui-selected': {
-                  backgroundColor: '#0FA173',
+                  backgroundColor: '#0d8861ff',
                   color: 'white',
                   '&:hover': {
                     backgroundColor: 'rgba(25, 205, 148, 0.6)',

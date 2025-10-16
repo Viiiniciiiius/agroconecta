@@ -33,7 +33,7 @@ export const DashboardPage: React.FC = () => {
             sx={{ height: 100 }}
           />
         </Box>
-        <Typography variant="h4" fontWeight={600} color='#0FA173' gutterBottom>
+        <Typography variant="h4" fontWeight={600} color='#0d8861ff' gutterBottom>
           Banco de Soluções do AgroConecta
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -43,10 +43,10 @@ export const DashboardPage: React.FC = () => {
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 12 }}>
           <Button
             sx={{
-              bgcolor: '#0FA173', 
+              bgcolor: '#0d8861ff', 
               color: 'white', 
               px: 3, py: 1.2,
-              borderRadius: 3,
+              borderRadius: 2,
               fontSize: '1rem',
               fontWeight: 600,
               '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }
@@ -59,11 +59,11 @@ export const DashboardPage: React.FC = () => {
           {(ADMIN_MODE || adminToken) && (
             <Button
               sx={{
-                bgcolor: '#0FA173', 
+                bgcolor: '#0d8861ff', 
                 color: 'white', 
                 px: 3, 
                 py: 1.2,
-                borderRadius: 3,
+                borderRadius: 2,
                 fontSize: '1rem',
                 fontWeight: 600,
                 '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }

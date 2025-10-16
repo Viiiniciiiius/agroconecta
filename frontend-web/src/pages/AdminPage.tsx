@@ -25,13 +25,22 @@ const AdminPage= () => {
     }));
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     setFormData({ adminName: '', adminPwd: '' });
     AuthAdmin({ name: formData.adminName, password: formData.adminPwd });
 
-    navigate('/');
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
 
   return (
@@ -39,6 +48,36 @@ const AdminPage= () => {
       maxWidth="md"
       sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 24,
+          right: 24,
+          display: 'flex',
+          justifyContent: 'flex-end',          
+        }}
+      >
+        { localStorage.getItem('token') && (
+          <Button
+            onClick={handleLogout}
+            sx={{ 
+              mb: 4,
+              fontSize: '1rem',
+              fontWeight: 'bold', 
+              color: 'error.main', 
+              border: '2px solid', 
+              borderColor: 'error.main',
+              '&:hover': { 
+                backgroundColor: 'error.light', 
+                color: 'white',
+                borderColor: 'error.dark'
+              }
+            }}
+          >
+            Signout
+          </Button>
+        )}
+      </Box>
       <Box
         sx={{
           p: { xs: 4, md: 6 },
@@ -50,7 +89,7 @@ const AdminPage= () => {
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
         }}
       >
-        <Typography variant="h4" fontWeight={600} color='#0FA173' gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" fontWeight={600} color='#0d8861' gutterBottom sx={{ textAlign: 'center' }}>
           Admin Login
         </Typography>
 
@@ -79,17 +118,17 @@ const AdminPage= () => {
             <Button
               type="submit"
               sx={{
-                bgcolor: '#0FA173',
+                bgcolor: '#0d8861ff',
                 color: 'white',
                 px: 4,
                 py: 1,
-                borderRadius: 3,
+                borderRadius: 2,
                 fontSize: '1.2rem',
                 fontWeight: 600,
                 '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.8)' }
               }}
             >
-              Entrar
+              Signin
             </Button>
           </Box>
         </Box>

@@ -100,7 +100,7 @@ export const CreateSolutionPage: React.FC = () => {
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
         }}
       >
-        <Typography variant="h4" fontWeight={600} color='#0FA173' gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" fontWeight={600} color='#0d8861ff' gutterBottom sx={{ textAlign: 'center' }}>
           Adicione uma nova solução ao banco de dados
         </Typography>
 
@@ -212,7 +212,7 @@ export const CreateSolutionPage: React.FC = () => {
             margin="normal"
           />
 
-          <Typography variant="h6" sx={{ mt: 3, color: '#0FA173' }}>
+          <Typography variant="h6" sx={{ mt: 3, color: '#0d8861ff' }}>
             Contato do Proprietário (Opcional)
           </Typography>
 
@@ -253,11 +253,11 @@ export const CreateSolutionPage: React.FC = () => {
             <Button 
               type="submit"
               sx={{
-                bgcolor: '#0FA173',
+                bgcolor: '#0d8861ff',
                 color: 'white',
                 px: 4,
                 py: 1.2,
-                borderRadius: 3,
+                borderRadius: 2,
                 fontSize: '1rem',
                 fontWeight: 600,
                 '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }
