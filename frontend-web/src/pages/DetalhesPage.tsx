@@ -64,7 +64,7 @@ export const SolutionDetailsPage: React.FC = () => {
             p: { xs: 4, md: 6 },
             bgcolor: 'background.paper', 
             borderRadius: 4, 
-            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
+            background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -119,7 +119,7 @@ export const SolutionDetailsPage: React.FC = () => {
           p: { xs: 4, md: 6 },
           bgcolor: 'background.paper', 
           borderRadius: 4, 
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))'
         }}
       >
         <Typography variant="h5" fontWeight={600} color="#0d8861ff" sx={{pb: 4}} gutterBottom>

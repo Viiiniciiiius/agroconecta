@@ -74,10 +74,10 @@ export const ViewSolutionsPage: React.FC = () => {
           width: '100%',
           maxWidth: 700,
           mx: 'auto',
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
           mb: 4,
           textAlign: 'center',
-          border: '1px solid rgba(25, 205, 148, 0.2)'
+          border: '1px solid rgba(13, 136, 97, 0.2)'
         }}
       >
         <Typography 
@@ -185,9 +185,9 @@ export const ViewSolutionsPage: React.FC = () => {
           borderRadius: 4,
           width: '100%',
           maxWidth: '100%',
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
           textAlign: 'center',
-          border: '1px solid rgba(25, 205, 148, 0.2)',
+          border: '1px solid rgba(13, 136, 97, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -202,9 +202,9 @@ export const ViewSolutionsPage: React.FC = () => {
           bgcolor: 'background.paper',
           borderRadius: 4,
           width: '100%',
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))',
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
           textAlign: 'center',
-          border: '1px solid rgba(25, 205, 148, 0.2)',
+          border: '1px solid rgba(13, 136, 97, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -244,7 +244,7 @@ export const ViewSolutionsPage: React.FC = () => {
                   display: 'flex',
                   boxShadow: 0,
                   '&:hover': {
-                    boxShadow: '0 8px 20px rgba(25, 205, 148, 0.4)',
+                    boxShadow: '0 8px 20px rgba(13, 136, 97, 0.4)',
                     transform: 'translateY(-4px)',
                     transition: 'all 0.2s ease-in-out',
                   },
@@ -291,7 +291,7 @@ export const ViewSolutionsPage: React.FC = () => {
                         variant="body2"
                         sx={{
                           color: 'text.secondary',
-                          backgroundColor: 'rgba(25, 205, 148, 0.1)',
+                          backgroundColor: 'rgba(13, 136, 97, 0.1)',
                           px: 2,
                           py: 0.5,
                           borderRadius: 2,
@@ -365,7 +365,7 @@ export const ViewSolutionsPage: React.FC = () => {
                   },
                 },
                 '&:hover': {
-                  backgroundColor: 'rgba(25, 205, 148, 0.1)',
+                  backgroundColor: 'rgba(13, 136, 97, 0.1)',
                 },
               },
             }}

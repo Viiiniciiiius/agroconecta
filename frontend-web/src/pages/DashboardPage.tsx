@@ -17,7 +17,7 @@ export const DashboardPage: React.FC = () => {
           bgcolor: 'background.paper', 
           borderRadius: 4, 
           maxWidth: 600,
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))'
         }}
       >
         <Box

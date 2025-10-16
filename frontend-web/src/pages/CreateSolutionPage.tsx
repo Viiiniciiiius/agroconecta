@@ -97,7 +97,7 @@ export const CreateSolutionPage: React.FC = () => {
           borderRadius: 4, 
           maxWidth: 600,
           mx: 'auto',
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(25, 205, 148, 0.1))'
+          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))'
         }}
       >
         <Typography variant="h4" fontWeight={600} color='#0d8861ff' gutterBottom sx={{ textAlign: 'center' }}>
