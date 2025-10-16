@@ -217,7 +217,7 @@ export const CreateSolutionPage: React.FC = () => {
           </Typography>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+            <Grid xs={12} sm={4}>
               <TextField
                 label="E-mail"
                 name="ownerContact.email"
@@ -227,7 +227,7 @@ export const CreateSolutionPage: React.FC = () => {
                 margin="normal"
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid xs={12} sm={4}>
               <TextField
                 label="Telefone"
                 name="ownerContact.phone"
@@ -237,7 +237,7 @@ export const CreateSolutionPage: React.FC = () => {
                 margin="normal"
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid xs={12} sm={4}>
               <TextField
                 label="Outro"
                 name="ownerContact.other"

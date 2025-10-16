@@ -236,7 +236,7 @@ export const ViewSolutionsPage: React.FC = () => {
       ) : (
         <Grid container spacing={3} justifyContent="center" sx={{ width: '100%', maxWidth: '100%', mx: 0 }}>
           {currentSolutions.map(solution => (
-            <Grid item xs={12} sm={6} md={4} key={solution.id} sx={{ maxWidth: 370, flex: '1 1 320px' }}>
+            <Grid xs={12} sm={6} md={4} key={solution.id} sx={{ maxWidth: 370, flex: '1 1 320px' }}>
               <Card
                 sx={{
                   cursor: 'pointer',

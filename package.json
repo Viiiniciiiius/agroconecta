@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^6.3.1",
-    "@mui/material": "^6.4.8",
+    "@mui/material": "^6.5.0",
     "@tanstack/react-query": "^5.66.9",
     "fastify-plugin": "^5.0.1",
     "framer-motion": "^12.6.0",
@@ -33,7 +33,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-input-mask": "^2.0.4",
-    "react-router-dom": "^6.29.0",
+    "react-router-dom": "^6.30.1",
     "react-window": "^1.8.11"
   }
 }
