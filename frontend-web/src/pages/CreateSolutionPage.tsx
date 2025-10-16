@@ -260,7 +260,7 @@ export const CreateSolutionPage: React.FC = () => {
                 borderRadius: 2,
                 fontSize: '1rem',
                 fontWeight: 600,
-                '&:hover': { bgcolor: 'rgba(25, 205, 148, 0.6)' }
+                '&:hover': { bgcolor: 'rgba(13, 136, 97, 0.6)' }
               }}
             >
               Adicionar Solução

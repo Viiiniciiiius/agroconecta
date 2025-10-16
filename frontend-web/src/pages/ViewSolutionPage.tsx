@@ -361,7 +361,7 @@ export const ViewSolutionsPage: React.FC = () => {
                   backgroundColor: '#0d8861ff',
                   color: 'white',
                   '&:hover': {
-                    backgroundColor: 'rgba(25, 205, 148, 0.6)',
+                    backgroundColor: 'rgba(13, 136, 97, 0.6)',
                   },
                 },
                 '&:hover': {
