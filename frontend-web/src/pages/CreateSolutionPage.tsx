@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Container, Box, TextField, Typography, Button, MenuItem, 
-  FormControl, InputLabel, Select, Grid 
+  FormControl, InputLabel, Select 
 } from '@mui/material';
 import { createSolution } from "../api/solution";
 import { CreateSolutionForm } from '../types/solution';
@@ -216,38 +216,38 @@ export const CreateSolutionPage: React.FC = () => {
             Contato do Proprietário (Opcional)
           </Typography>
 
-          <Grid container spacing={2}>
-            <Grid xs={12} sm={4}>
-              <TextField
-                label="E-mail"
-                name="ownerContact.email"
-                value={formData.ownerContact?.email || ''}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-              />
-            </Grid>
-            <Grid xs={12} sm={4}>
-              <TextField
-                label="Telefone"
-                name="ownerContact.phone"
-                value={formData.ownerContact?.phone || ''}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-              />
-            </Grid>
-            <Grid xs={12} sm={4}>
-              <TextField
-                label="Outro"
-                name="ownerContact.other"
-                value={formData.ownerContact?.other || ''}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-              />
-            </Grid>
-          </Grid>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 2,
+              flexDirection: { xs: 'column', sm: 'row' },
+            }}
+          >
+            <TextField
+              label="E-mail"
+              name="ownerContact.email"
+              value={formData.ownerContact?.email || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Telefone"
+              name="ownerContact.phone"
+              value={formData.ownerContact?.phone || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Outro"
+              name="ownerContact.other"
+              value={formData.ownerContact?.other || ''}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+          </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
             <Button 

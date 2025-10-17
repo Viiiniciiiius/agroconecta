@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Container, Box, Typography, Grid, Card, CardContent,
+  Container, Box, Typography, Card, CardContent,
   FormControl, InputLabel, Select, MenuItem, Pagination, SelectChangeEvent
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -234,9 +234,21 @@ export const ViewSolutionsPage: React.FC = () => {
           </Typography>
         </Box>
       ) : (
-        <Grid container spacing={3} justifyContent="center" sx={{ width: '100%', maxWidth: '100%', mx: 0 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+            },
+            gap: 3,
+            justifyItems: 'center',
+            width: '100%',
+          }}
+        >
           {currentSolutions.map(solution => (
-            <Grid xs={12} sm={6} md={4} key={solution.id} sx={{ maxWidth: 370, flex: '1 1 320px' }}>
+            <Box key={solution.id} sx={{ width: '100%', maxWidth: 370 }}>
               <Card
                 sx={{
                   cursor: 'pointer',
@@ -335,9 +347,9 @@ export const ViewSolutionsPage: React.FC = () => {
                   )}
                 </CardContent>
               </Card>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       )}
       {totalPages > 1 && (
         <Box sx={{ 
