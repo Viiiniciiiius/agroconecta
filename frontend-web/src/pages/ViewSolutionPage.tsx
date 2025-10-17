@@ -65,7 +65,7 @@ export const ViewSolutionsPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth={false} sx={{ minHeight: '100vh', mb: 4, px: { xs: 1, sm: 2, md: 4 } }}>
+    <Container maxWidth={false} sx={{ mb: 4, px: { xs: 1, sm: 2, md: 4 } }}>
       <Box
         sx={{
           p: { xs: 4, md: 6 },
@@ -77,7 +77,6 @@ export const ViewSolutionsPage: React.FC = () => {
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
           mb: 4,
           textAlign: 'center',
-          border: '1px solid rgba(13, 136, 97, 0.2)'
         }}
       >
         <Typography 
@@ -187,7 +186,6 @@ export const ViewSolutionsPage: React.FC = () => {
           maxWidth: '100%',
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
           textAlign: 'center',
-          border: '1px solid rgba(13, 136, 97, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -204,7 +202,6 @@ export const ViewSolutionsPage: React.FC = () => {
           width: '100%',
           background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
           textAlign: 'center',
-          border: '1px solid rgba(13, 136, 97, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

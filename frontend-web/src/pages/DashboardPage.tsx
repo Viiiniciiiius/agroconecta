@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import agroconectaIcon from '../utils/agroconecta-icon.svg';
@@ -9,7 +9,16 @@ export const DashboardPage: React.FC = () => {
   const adminToken = localStorage.getItem('token') || '';
 
   return (
-    <Container maxWidth="md" sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Box
+      sx={{
+        width: '100%',
+        minHeight: '100vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        background: '#00000000'
+      }}
+    >
       <Box 
         sx={{ 
           textAlign: 'center', 
@@ -17,7 +26,7 @@ export const DashboardPage: React.FC = () => {
           bgcolor: 'background.paper', 
           borderRadius: 4, 
           maxWidth: 600,
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))'
+          background: 'rgba(255, 255, 255, 0)',
         }}
       >
         <Box
@@ -82,7 +91,7 @@ export const DashboardPage: React.FC = () => {
           agroconectaifce@gmail.com | +55 88 9 9439-8308
         </Typography>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

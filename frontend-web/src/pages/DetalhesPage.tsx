@@ -24,6 +24,7 @@ export const SolutionDetailsPage: React.FC = () => {
       try {
         const data = await getSolution(id);
         setSolution(data);
+        console.log('Data coleta obtida:', data.dataColeta);
       } catch (error) {
         console.error('Erro ao buscar detalhes da solução:', error);
         setError('Erro ao carregar os detalhes da solução. Tente novamente.');
@@ -34,6 +35,16 @@ export const SolutionDetailsPage: React.FC = () => {
 
     fetchSolution();
   }, [id]);
+
+  const formateDate = (dateString: string) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+      return dateString;
+    }
+    
+    const [ano, mes, dia] = dateString.split('-');
+    return `${dia}/${mes}/${ano}`;
+  }
+
 
   const handleDelete = async () => {
     if (!id) {
@@ -159,10 +170,7 @@ export const SolutionDetailsPage: React.FC = () => {
             </Typography>
             {solution.dataColeta && (
               <Typography variant="body1" gutterBottom>
-                <strong>Data da Coleta:</strong> {(() => {
-                  const d = new Date(solution.dataColeta);
-                  return isNaN(d.getTime()) ? solution.dataColeta : d.toLocaleDateString();
-                })()}
+                <strong>Data da Coleta:</strong> {formateDate(solution.dataColeta)}
               </Typography>
             )}
             {solution.starRating !== undefined && (
