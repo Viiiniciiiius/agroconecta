@@ -36,7 +36,7 @@ export const DashboardPage: React.FC = () => {
         <Typography variant="h4" fontWeight={600} color='#0d8861ff' gutterBottom>
           Banco de Soluções do AgroConecta
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 6 }}>
+        <Typography variant="h6" color="text.secondary" sx={{ mb: 6 }}>
           Encontre soluções inovadoras para o agronegócio.
         </Typography>
         
@@ -75,10 +75,10 @@ export const DashboardPage: React.FC = () => {
             </Button>
           )}
         </Box>
-        <Typography variant="body2" color="textDisabled" sx={{ m: 0  }}>
+        <Typography variant="h6" color="textDisabled" sx={{ m: 0  }}>
           Caso não encontre o que procura, entre em contato conosco.
         </Typography>
-        <Typography variant="body2" color="textDisabled" sx={{ m: 0 }}>
+        <Typography variant="h6" color="textDisabled" sx={{ m: 0 }}>
           agroconectaifce@gmail.com | +55 88 9 9439-8308
         </Typography>
       </Box>
