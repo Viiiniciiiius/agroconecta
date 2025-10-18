@@ -4,6 +4,7 @@ import { Container, Box, Typography, Card, CardContent, Link, Button, CircularPr
 import { getSolution, deleteSolution } from '../api/solution';
 import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel } from '../utils/categories';
 import { SolutionFromBackend } from '../types/solution';
+import TouchAppIcon from '@mui/icons-material/TouchApp';
 
 export const SolutionDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,7 +25,6 @@ export const SolutionDetailsPage: React.FC = () => {
       try {
         const data = await getSolution(id);
         setSolution(data);
-        console.log('Data coleta obtida:', data.dataColeta);
       } catch (error) {
         console.error('Erro ao buscar detalhes da solução:', error);
         setError('Erro ao carregar os detalhes da solução. Tente novamente.');
@@ -40,7 +40,7 @@ export const SolutionDetailsPage: React.FC = () => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
       return dateString;
     }
-    
+
     const [ano, mes, dia] = dateString.split('-');
     return `${dia}/${mes}/${ano}`;
   }
@@ -130,7 +130,7 @@ export const SolutionDetailsPage: React.FC = () => {
           p: { xs: 4, md: 6 },
           bgcolor: 'background.paper', 
           borderRadius: 4, 
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))'
+          background: 'linear-gradient(135deg, rgba(0, 99, 212, 0.1), rgba(0, 255, 174, 0.1))'
         }}
       >
         <Typography variant="h5" fontWeight={600} color="#0d8861ff" sx={{pb: 4}} gutterBottom>
@@ -142,6 +142,16 @@ export const SolutionDetailsPage: React.FC = () => {
           boxShadow: 0,
         }}>
           <CardContent sx={{ textAlign: 'left' }}>
+            {solution.priceDollar !== undefined && (
+              <Typography variant="h6" gutterBottom>
+                <strong>Preço em dólar:</strong> ${solution.priceDollar}
+              </Typography>
+            )}
+            {solution.link && (
+              <Typography variant="body1" gutterBottom>
+                <strong>Abrir link da solução:</strong> <Link href={solution.link} target="_blank" rel="noopener">{solution.link}</Link>
+              </Typography>
+            )}
             <Typography variant="body1" gutterBottom>
               <strong>Categoria:</strong> {CATEGORIES_CONFIG[solution.category as CategoryType]?.label || solution.category}
             </Typography>
@@ -155,19 +165,6 @@ export const SolutionDetailsPage: React.FC = () => {
                 <strong>Descrição:</strong> {solution.description}
               </Typography>
             )}
-            {solution.priceDollar !== undefined && (
-              <Typography variant="body1" gutterBottom>
-                <strong>Preço:</strong> ${solution.priceDollar}
-              </Typography>
-            )}
-            {solution.link && (
-              <Typography variant="body1" gutterBottom>
-                <strong>Link:</strong> <Link href={solution.link} target="_blank" rel="noopener">{solution.link}</Link>
-              </Typography>
-            )}
-            <Typography variant="body1" gutterBottom>
-              <strong>Data de Publicação:</strong> {new Date(solution.publishDate).toLocaleDateString()}
-            </Typography>
             {solution.dataColeta && (
               <Typography variant="body1" gutterBottom>
                 <strong>Data da Coleta:</strong> {formateDate(solution.dataColeta)}
@@ -211,26 +208,61 @@ export const SolutionDetailsPage: React.FC = () => {
               </Typography>
             )}
           </CardContent>
-          {(ADMIN_MODE || adminToken) && (
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, p: 2 }}>
-              <Button
-                variant="outlined"
-                color="error"
-                sx={{
-                  borderColor: 'error.main',
-                  color: 'error.main',
-                  '&:hover': {
-                    borderColor: 'error.dark',
-                    backgroundColor: 'error.light',
-                    color: 'error.contrastText',
-                  },
-                }}
-                onClick={handleDelete}
-              >
-                Excluir Solução
-              </Button>
-            </Box>
+
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              justifyContent: 'space-around', 
+              alignItems: 'center', 
+              flexDirection: 'row', 
+              pt: 2, 
+              pb: 4
+            }}
+          >
+          {solution.link && (
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                borderRadius: 2,
+                p: 2,
+                color: 'white',
+                boxShadow: 'none',
+                '&:hover': {
+                  backgroundColor: 'white',
+                  color: 'primary.main',
+                  boxShadow: 'none',
+                  border: '1px solid',
+                  borderColor: 'primary.main',
+                },
+              }}
+              onClick={handleDelete}
+            >
+              ABRIR SOLUÇÃO
+              <TouchAppIcon sx={{ ml: 1 }} />
+            </Button>
           )}
+          {(ADMIN_MODE || adminToken) && (
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{
+                borderRadius: 2,
+                p: 2,
+                borderColor: 'error.main',
+                color: 'error.main',
+                '&:hover': {
+                  borderColor: 'error.dark',
+                  backgroundColor: 'error.light',
+                  color: 'error.contrastText',
+                },
+              }}
+              onClick={handleDelete}
+            >
+              Excluir Solução
+            </Button>
+          )}
+          </Box>
         </Card>
       </Box>
     </Container>

@@ -86,7 +86,7 @@ const AdminPage= () => {
           maxWidth: 450,
           width: '100%',
           mx: 'auto',
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))'
+          background: 'linear-gradient(135deg, rgba(0, 99, 212, 0.1), rgba(0, 255, 174, 0.1))'
         }}
       >
         <Typography variant="h4" fontWeight={600} color='#0d8861' gutterBottom sx={{ textAlign: 'center' }}>

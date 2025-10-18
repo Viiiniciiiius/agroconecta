@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
   Container, Box, Typography, Card, CardContent,
-  FormControl, InputLabel, Select, MenuItem, Pagination, SelectChangeEvent
+  FormControl, InputLabel, Select, MenuItem, Pagination, SelectChangeEvent,
+  InputAdornment
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getSolutions } from '../api/solution';
 import { SolutionCardProps } from '../types/solution';
 import { CATEGORIES_CONFIG, CategoryType, getSubcategoryLabel, getSubcategories } from '../utils/categories';
+import AdsClickIcon from '@mui/icons-material/AdsClick';
 
 export const ViewSolutionsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ export const ViewSolutionsPage: React.FC = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const itemsPerPage = 6;
+  const [open, setOpen] = useState(false);
 
   const fetchSolutions = React.useCallback(async () => {
     setLoading(true);
@@ -74,7 +77,7 @@ export const ViewSolutionsPage: React.FC = () => {
           width: '100%',
           maxWidth: 700,
           mx: 'auto',
-          background: 'linear-gradient(135deg, rgba(0,131,136,0.1), rgba(13, 136, 97, 0.1))',
+          background: 'linear-gradient(135deg, rgba(0, 99, 212, 0.1), rgba(0, 255, 174, 0.1))',
           mb: 4,
           textAlign: 'center',
         }}
@@ -88,15 +91,15 @@ export const ViewSolutionsPage: React.FC = () => {
             mb: 3
           }}
         >
-          Ver Soluções
+          Encontre Soluções
         </Typography>
         
         <Typography 
-          variant="body1" 
+          variant="h6" 
           color="text.secondary" 
           sx={{ mb: 4, maxWidth: 600, mx: 'auto', textAlign: 'center' }}
         >
-          Explore soluções inovadoras para o agronegócio. Filtre por categoria para encontrar exatamente o que você precisa.
+          Explore soluções inovadoras. Filtre a categoria para encontrar o que você precisa.
         </Typography>
         
         <FormControl 
@@ -104,23 +107,41 @@ export const ViewSolutionsPage: React.FC = () => {
           sx={{ 
             mt: 2,
             maxWidth: 400,
-            mx: 'auto'
+            mx: 'auto',
           }}
         >
-          <InputLabel id="filter-category-label">Filtrar por categoria</InputLabel>
+          <InputLabel id="filter-category-label">
+            Filtrar por categoria
+          </InputLabel>
           <Select
             labelId="filter-category-label"
             label="Filtrar por categoria"
             value={selectedCategory}
             onChange={handleCategoryChange}
+            open={open}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            // --- FIM DA ADIÇÃO ---
+
+            endAdornment={
+              <InputAdornment 
+                position="end" 
+                sx={{ 
+                  mr: 2, 
+                  cursor: 'pointer' // --- ADICIONADO (feedback visual) ---
+                }}
+                // 3. Adicione o onClick para abrir o Select ---
+                onClick={() => setOpen(true)} 
+              >
+                <AdsClickIcon />
+              </InputAdornment>
+            }
             sx={{
-              '& .MuiOutlinedInput-root': {
-                '&:hover fieldset': {
-                  borderColor: '#0d8861ff',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#0d8861ff',
-                },
+              '&:hover .MuiOutlinedInput-fieldset': {
+                borderColor: '#0d8861ff',
+              },
+              '&.Mui-focused .MuiOutlinedInput-fieldset': {
+                borderColor: '#0d8861ff',
               },
             }}
           >
@@ -297,10 +318,10 @@ export const ViewSolutionsPage: React.FC = () => {
                       flexWrap: 'wrap',
                     }}>
                       <Typography
-                        variant="body2"
+                        variant="h6"
                         sx={{
                           color: 'text.secondary',
-                          backgroundColor: 'rgba(13, 136, 97, 0.1)',
+                          backgroundColor: 'rgba(18, 205, 146, 0.1)',
                           px: 2,
                           py: 0.5,
                           borderRadius: 2,
@@ -312,10 +333,10 @@ export const ViewSolutionsPage: React.FC = () => {
                       </Typography>
                       {solution.subcategory && (
                         <Typography
-                          variant="body2"
+                          variant="h6"
                           sx={{
                             color: 'text.secondary',
-                            backgroundColor: 'rgba(0, 131, 136, 0.1)',
+                            backgroundColor: 'rgba(0, 205, 212, 0.1)',
                             px: 2,
                             py: 0.5,
                             borderRadius: 2,
@@ -330,11 +351,10 @@ export const ViewSolutionsPage: React.FC = () => {
                   </Box>
                   {solution.priceDollar !== undefined && (
                     <Typography
-                      variant="body1"
+                      variant="h6"
                       sx={{
                         color: '#0d8861ff',
                         fontWeight: 600,
-                        fontSize: '1.1rem',
                         mt: 2,
                         textAlign: 'right',
                       }}

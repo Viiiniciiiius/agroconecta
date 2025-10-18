@@ -22,7 +22,7 @@ export const DashboardPage: React.FC = () => {
       <Box 
         sx={{ 
           textAlign: 'center', 
-          p: { xs: 4, md: 6 }, 
+          p: { xs: 0, md: 6 }, 
           bgcolor: 'background.paper', 
           borderRadius: 4, 
           maxWidth: 600,
@@ -55,7 +55,7 @@ export const DashboardPage: React.FC = () => {
             sx={{
               bgcolor: '#0d8861ff', 
               color: 'white', 
-              px: 3, py: 1.2,
+              p: 3, py: 1.2,
               borderRadius: 2,
               fontSize: '1rem',
               fontWeight: 600,
