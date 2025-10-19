@@ -1,16 +1,14 @@
 # 🌱 AgroConecta
 
-**AgroConecta** is a simple and efficient application for storing and searching for solutions related to the agricultural sector. With an intuitive interface, users can register and consult solutions directly in a **MongoDB** database.
+**AgroConecta** is a simple and efficient application for storing and searching for solutions related to the agricultural sector. With an intuitive interface, users can consult solutions directly in a **MongoDB** database.
 
 ## 🚀 Technologies Used
 
 - **Frontend:** React (with Context API and Hooks)
 - **Backend:** Fastify (Node.js)
 - **Database:** Mongo Atlas
-- **Styling:** Tailwind CSS
-- **State Management:** Context API / Redux (optional)
-- **Authentication:** JSON Web Token (JWT)
-- **Deployment:** Firebase Hosting / AWS (to be defined)
+- **Styling:** Tailwind CSS / Material UI
+- **Deployment:** Vesel (to be defined)
 
 ## 🎯 Features
 
@@ -32,14 +30,14 @@ cd agroconecta
 
 ### 2️⃣ Set Up the Backend
 ```bash
-cd backend
+cd backend-api
 npm install
 npm run dev
 ```
 
 ### 3️⃣ Set Up the Frontend
 ```bash
-cd frontend
+cd frontend-web
 npm install
 npm start
 ```
@@ -47,16 +45,16 @@ npm start
 ### 4️⃣ Configure the Database
 Make sure you have **MongoDB** running locally or use a service like **MongoDB Atlas**. Set up the connection string in the `.env` file:
 ```env
-MONGO_URI=mongodb+srv://your_user:password@cluster.mongodb.net/agroconecta
-JWT_SECRET=your_secret_key
+MONGO_HOST=mongodb+srv://your_user:password@cluster.mongodb.net/agroconecta
 ```
 
 ## 🔗 Main Endpoints
 
 | Method | Route              | Description                 |
 |--------|------------------|-----------------------------|
-| POST   | /api/solutions   | Adds a new solution        |
+| POST   | /api/solutions/create   | Adds a new solution        |
 | GET    | /api/solutions   | Lists all solutions        |
+| GET    | /api/solutions/:id   | Solution detail           |
 | DELETE | /api/solutions/:id | Removes a solution         |
 
 ## 📌 Contribution
