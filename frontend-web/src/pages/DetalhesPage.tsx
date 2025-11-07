@@ -236,7 +236,7 @@ export const SolutionDetailsPage: React.FC = () => {
                   borderColor: 'primary.main',
                 },
               }}
-              onClick={handleDelete}
+              onClick={() => window.open(solution.link, '_blank')}
             >
               ABRIR SOLUÇÃO
               <TouchAppIcon sx={{ ml: 1 }} />
